@@ -7,6 +7,7 @@ import {
     CardBody,
     List,
     CardFooter,
+    Paragraph,
     // Collapsible, 
     // Heading, 
     // Grommet,
@@ -21,6 +22,11 @@ const SessionCardData = (props) => {
     const getSessionTitle = (value) => {
         const title = Data.sessionData[value].title;
         return title;
+    }
+
+    const getSessionLocation = (value) => {
+        const location = Data.sessionData[value].location;
+        return location;
     }
 
     const getSessionDesc = (value) => {
@@ -47,16 +53,18 @@ const SessionCardData = (props) => {
 
   return (
         <Card 
-            primary
             gridArea={props.grid} 
             height="100%" 
             width="100%" 
             background="blue"
             color="white"
+            pad="small"
+            // onClick={}
         >
-            <Box>{getSessionTitle(props.value)}</Box>
-            <Box>{getSessionDesc(props.value)}</Box>
-            <Box>{getSessionStart(props.value)} - {getSessionEnd(props.value)}</Box>
+            <Box><Paragraph>{getSessionTitle(props.value)}</Paragraph></Box>
+            <Box><Paragraph>{getSessionLocation(props.value)}</Paragraph></Box>
+            <Box><Paragraph>{getSessionDesc(props.value)}</Paragraph></Box>
+            <Box><Paragraph>{getSessionStart(props.value)} - {getSessionEnd(props.value)}</Paragraph></Box>
                 {/* {getSessionEnd(props.value)} */}
                 {/* <List
                     primaryKey="name"

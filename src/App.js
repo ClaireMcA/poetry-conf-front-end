@@ -9,6 +9,7 @@ import {
 } from 'grommet';
 import { FormNext, Menu } from 'grommet-icons';
 import TimetableView from './Timetable';
+import SelectorView from './Selector';
 
 const theme = {
   global: {
@@ -85,11 +86,10 @@ function App() {
             align='center' 
             justify='top'
           >
-          {/* <h1>app body</h1>       */}
-          <TimetableView />
-          {/* <SessionCardData 
-            value={0}
-          /> */}
+          {/* <TimetableView /> */}
+          <SelectorView 
+            sessionID = '0'
+          />
           </Box>
           <Collapsible
             direction="horizontal"
