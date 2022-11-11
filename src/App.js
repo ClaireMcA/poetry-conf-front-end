@@ -7,8 +7,8 @@ import {
   Grommet,
   // ResponsiveContext, 
 } from 'grommet';
-import { Menu } from 'grommet-icons';
-import SessionCardData from './SessionCard';
+import { FormNext, Menu } from 'grommet-icons';
+import TimetableView from './Timetable';
 
 const theme = {
   global: {
@@ -49,13 +49,26 @@ const AppBar = (props) => (
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showDay, setShowDay] = useState('Monday')
 
 
   return (
     <Grommet theme={theme} full>
       <Box fill>
         <AppBar>
-          <Heading level='3' margin='none'>My App</Heading>
+          <Box>
+            <Heading level='3' margin='none'>Out of the Ordinary</Heading>
+            <Box
+              direction='row'
+              align='center'
+            >
+              <Heading level='2' margin='none'>{showDay}</Heading>
+              <Button 
+                icon={<FormNext />}  
+                onClick={() => setShowDay(showDay = 'Tue')}
+              />
+            </Box>
+          </Box>
           <Button 
             icon={<Menu />}  
             onClick={() => setShowSidebar(!showSidebar)}
@@ -65,16 +78,18 @@ function App() {
           direction='row' 
           flex
           overflow={{ horizontal: 'hidden' }}
+          margin={{ top: 'small' }}
         >
           <Box 
             flex 
             align='center' 
-            justify='center'
+            justify='top'
           >
-          <h1>app body</h1>      
-          <SessionCardData 
-            value={1}
-          />
+          {/* <h1>app body</h1>       */}
+          <TimetableView />
+          {/* <SessionCardData 
+            value={0}
+          /> */}
           </Box>
           <Collapsible
             direction="horizontal"
@@ -85,27 +100,25 @@ function App() {
               width='medium'
               background='white'
               elevation='small'
-              align='center'
+              // align='center'
               justify='center'
+              alignContent='space-between'
+              // direction="vertical"
             >
-              <ul>
-                <li>
-                  <Button 
-                    primary 
-                    color='blue' 
-                    label="Timetable"
-                    onClick={() => {}}
-                  />
-                </li>
-                <li>
-                  <Button 
-                    primary 
-                    color='blue' 
-                    label="Campus Maps"
-                    onClick={() => {}}
-                  />
-                </li>
-              </ul>
+              <Button 
+                primary 
+                color='light-1' 
+                label="Timetable"
+                onClick={() => {}}
+                fill="horizontal"
+              />
+              <Button 
+                primary 
+                color='light-1' 
+                label="Campus Maps"
+                onClick={() => {}}
+                fill="horizontal"
+              />
             </Box>
           </Collapsible>
         </Box>

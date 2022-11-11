@@ -1,6 +1,7 @@
 import React from 'react';
-import sessionData from './Data'
+import * as Data from './Data'
 import { 
+    Box,
     Card,
     CardHeader,
     CardBody,
@@ -14,47 +15,50 @@ import {
 
 
 
-const SessionCardData = () => {
+const SessionCardData = (props) => {
 
     
-    const getSessionTitle = (id) => {
-        const title = sessionData[id].title;
-        console.log(title);
+    const getSessionTitle = (value) => {
+        const title = Data.sessionData[value].title;
         return title;
     }
 
-    const getSessionDesc = (id) => {
-        const description = sessionData[id].Desc;
-        console.log(description);
+    const getSessionDesc = (value) => {
+        const description = Data.sessionData[value].Desc;
         return description;
     }
 
-    const getSessionStart = (id) => {
-        // const start = sessionData[id].start;
-        const start = new Date(Date.UTC(2012, 11, 20, 1, 0, 0));
-        console.log(start);
-        // console.log(test);
+    const getSessionStart = (value) => {
+        const test = Data.sessionData[value].start;
+        const start = Data.start
+        console.log(test)
+        // const start = new Date(Date.UTC(2022, 12, 5, 1, 0, 0));
         const formattedStart = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         return formattedStart;
     }
 
-    // const getSessionEnd = (id) => {
-    //     const end = sessionData[id].end;
-    //     console.log(end);
-    //     const formattedEnd = end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    //     return formattedEnd;
-    // }
-
+    const getSessionEnd = (value) => {
+        // const end = Data.sessionData[value].end;
+        const end = new Date(Date.UTC(2022, 12, 5, 2, 30));
+        console.log(end);
+        const formattedEnd = end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        return formattedEnd;
+    }
 
   return (
-    <div className="Data">
-        <Card  height="medium" width="medium" background="light-1">
-            <CardHeader pad="medium">{getSessionTitle(this.props.value)}</CardHeader>
-            <CardBody pad="medium">
-                <p>{getSessionDesc(this.props.value)}</p>
-                <p>{getSessionStart(this.props.value)}</p>
-                {/* {getSessionEnd(2)} */}
-                <List
+        <Card 
+            primary
+            gridArea={props.grid} 
+            height="100%" 
+            width="100%" 
+            background="blue"
+            color="white"
+        >
+            <Box>{getSessionTitle(props.value)}</Box>
+            <Box>{getSessionDesc(props.value)}</Box>
+            <Box>{getSessionStart(props.value)} - {getSessionEnd(props.value)}</Box>
+                {/* {getSessionEnd(props.value)} */}
+                {/* <List
                     primaryKey="name"
                     // data={data}
                     // secondaryKey="percent"
@@ -64,14 +68,9 @@ const SessionCardData = () => {
                     //     { name: 'Chris', percent: 40 },
                     //     { name: 'Eric', percent: 80 },
                     // ]}
-                />
-            </CardBody>
-            <CardFooter pad={{horizontal: "small"}} background="light-2">
-
-            </CardFooter>
+                /> */}
+            {/* </CardBody> */}
         </Card>
-
-    </div>
   );
 };
 
