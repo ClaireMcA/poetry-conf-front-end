@@ -120,13 +120,6 @@ function App() {
                 onClick={() => {}}
                 fill="horizontal"
               />
-              <Button 
-                primary 
-                color='light-1' 
-                label="Admin"
-                onClick={() => {}}
-                fill="horizontal"
-              />
             </Box>
           </Collapsible>
         </Box>

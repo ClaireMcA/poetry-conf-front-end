@@ -6,8 +6,8 @@ import {
     Card,
     CardHeader,
 } from 'grommet';
-import * as GridData from './Data';
-import SessionCardData from './SessionCard';
+import * as GridData from '../Data';
+import SessionCardData from '../SessionCard';
 
 
 const getTimeAreas = () => {
@@ -55,7 +55,7 @@ const getTimeAreas = () => {
     //     });
         
     // }
-    console.log(timetableViewAreas)
+    // console.log(timetableViewAreas)
     return timetableViewAreas;
 
 }
@@ -77,11 +77,10 @@ const renderBoxes = () => {
             id = {i}
             >
                 {valueDisplay}
-                
             </Box>
         );
     }
-    console.log(elements)
+    // console.log(elements)
     return <React.Fragment>
         {elements}
       </React.Fragment>;
@@ -124,7 +123,7 @@ const renderCards = () => {
 
 
 
-const TimetableView = () => {
+const Timetable = () => {
 
     return (
         <Grid
@@ -140,7 +139,7 @@ const TimetableView = () => {
         >
             {renderBoxes()}
 
-            <SessionCardData grid='time' value="2" />
+            <SessionCardData grid='time' value="0" />
 
             {/* <Card gridArea="time" background="brand">
                 <CardHeader>Title</CardHeader>
@@ -157,4 +156,4 @@ const TimetableView = () => {
     );
 }
 
-export default TimetableView;
+export default Timetable;
