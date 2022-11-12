@@ -8,8 +8,8 @@ import {
   // ResponsiveContext, 
 } from 'grommet';
 import { FormNext, Menu } from 'grommet-icons';
-import TimetableView from './routes/Timetable';
-import SelectorView from './routes/Selector';
+// import TimetableView from './Timetable';
+// import SelectorView from './Selector';
 
 
 const theme = {
@@ -49,9 +49,8 @@ const AppBar = (props) => (
 
 
 
-function App() {
+function Root() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [showDay, setShowDay] = useState('Monday');
 
 
   return (
@@ -64,10 +63,9 @@ function App() {
               direction='row'
               align='center'
             >
-              <Heading level='2' margin='none'>{showDay}</Heading>
+              <Heading level='2' margin='none'>Testing</Heading>
               <Button 
                 icon={<FormNext />}  
-                onClick={() => setShowDay(showDay = 'Tue')}
               />
             </Box>
           </Box>
@@ -87,10 +85,6 @@ function App() {
             align='center' 
             justify='top'
           >
-          <TimetableView />
-          {/* <SelectorView 
-            sessionID = '0'
-          /> */}
           </Box>
           <Collapsible
             direction="horizontal"
@@ -128,4 +122,4 @@ function App() {
   );
 }
 
-export default App;
+export default Root;

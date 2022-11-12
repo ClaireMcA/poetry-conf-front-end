@@ -1,12 +1,69 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
+
+import Root from './routes/Root';
+import SignIn from './routes/SignIn';
+import Timetable from './routes/Timetable';
+import Selector from './routes/Selector';
+import Register from './routes/Register';
+import ErrorPage from "./error-page";
+
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />, 
+  },
+  {
+    path: "signin",
+    element: <SignIn />,
+    errorElement: <ErrorPage />, 
+  },
+  {
+    path: "register",
+    element: <Register />,
+    errorElement: <ErrorPage />, 
+  },
+  {
+    path: "schedule",
+    element: <Timetable />,
+    errorElement: <ErrorPage />, 
+    children: [
+      {
+        path: "session/:sessionId",
+        element: <Selector />,
+        errorElement: <ErrorPage />, 
+      },
+    ],
+  },
+]);
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
+  // <BrowserRouter>
+  //   <Routes>
+  //     <Route exact path="/" element={<App/>} />
+  //     <Route path="Schedule" element={<TimetableView />} />
+
+  //   </Routes>
+  // </BrowserRouter>,
+
+
+
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

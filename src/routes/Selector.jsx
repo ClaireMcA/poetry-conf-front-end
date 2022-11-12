@@ -6,9 +6,9 @@ import {
     Card,
     CardHeader,
 } from 'grommet';
-import * as GridData from './Data';
-import SessionCardData from './SessionCard';
-import reportWebVitals from './reportWebVitals';
+import * as GridData from '../Data';
+import SessionCardData from '../SessionCard';
+import reportWebVitals from '../reportWebVitals';
 
 const getTimeAreas = () => {
     const timeViewAreas = [];
@@ -20,7 +20,7 @@ const getTimeAreas = () => {
         // console.log(time)
         const start = GridData.timeAreaValue[i];
         const end = GridData.timeAreaValue[i + 1];
-        console.log(end);
+        // console.log(end);
         // const value = n;
         // const gridValue = value + 3;
         timeViewAreas.push({
@@ -114,7 +114,7 @@ const renderCards = () => {
 
 
 
-const SelectorView = (props) => {
+const Selector = (props) => {
 
     const sessionID = props.sessionID
 
@@ -145,4 +145,4 @@ const SelectorView = (props) => {
     );
 }
 
-export default SelectorView;
+export default Selector;

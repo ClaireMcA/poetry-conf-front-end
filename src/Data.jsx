@@ -1,17 +1,27 @@
+export const start = new Date(2022, 12, 5, 9, 45);
+
+const time = new Date(2022, 12, 5, 9, 45);
+
 export const sessionData = [
     {
         id:1,
         title:"Smoke-Ceremony",
-        start: new Date(Date.UTC(2022, 12, 5, 9, 45)),
-        end:"2022, 12, 5, 10, 15",
+        start: [
+            2022, 
+            12, 
+            5, 
+            9, 
+            45,
+        ],
+        end: new Date(2022, 12, 5, 10, 15),
         Desc:"",
         isMulti:false,
     },
     {
         id:2,
         title:"Morning Tea",
-        start:"Mon Dec 5 2022 10:15:00 GMT+1100 (Australian Eastern Daylight Time)",
-        end:"Mon Dec 5 2022 10:45:00 GMT+1100 (Australian Eastern Daylight Time)",
+        start: new Date(2022, 12, 5, 10, 15),
+        end: new Date(2022, 12, 5, 10, 45),
         Desc:"",
         isMulti:false,
     },
@@ -275,7 +285,7 @@ export const timeGridData =
 
 
 
-export const start = new Date(Date.UTC(2022, 12, 5, 5, 0, 0));
+
 
 
 
