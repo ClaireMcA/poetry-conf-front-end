@@ -13,7 +13,7 @@ import Timetable from './routes/Timetable';
 import Selector from './routes/Selector';
 import Register from './routes/Register';
 import ErrorPage from "./error-page";
-import NavMenu from './NavMenu';
+import NavMenu from './Menu';
 
 
 

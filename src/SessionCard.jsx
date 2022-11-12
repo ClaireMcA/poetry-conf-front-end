@@ -71,10 +71,37 @@ const SessionCardData = (props) => {
             pad="small"
             // onClick={}
         >
-            <Box><Paragraph>{getSessionTitle(props.value)}</Paragraph></Box>
-            <Box><Paragraph>{getSessionLocation(props.value)}</Paragraph></Box>
-            <Box><Paragraph>{getSessionDesc(props.value)}</Paragraph></Box>
-            <Box><Paragraph>{getSessionStart(props.value)} - {getSessionEnd(props.value)}</Paragraph></Box>
+            <Box>
+                <Paragraph
+                    color="white"
+                    maxLines="3"
+                    size="large"
+                    
+                >
+                    {getSessionTitle(props.value)}
+                </Paragraph>
+            </Box>
+            <Box>
+                <Paragraph
+                    color="white"
+                >
+                    {getSessionLocation(props.value)}
+                </Paragraph>
+            </Box>
+            <Box>
+                <Paragraph
+                    color="white"
+                >
+                    {getSessionDesc(props.value)}
+                </Paragraph>
+            </Box>
+            <Box>
+                <Paragraph
+                    color="white"
+                >
+                    {getSessionStart(props.value)} - {getSessionEnd(props.value)}
+                </Paragraph>
+            </Box>
                 {/* {getSessionEnd(props.value)} */}
                 {/* <List
                     primaryKey="name"

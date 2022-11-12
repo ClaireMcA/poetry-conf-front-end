@@ -56,13 +56,13 @@ export const NavMenu = () => {
                     onClick={() => setShowSidebar(!showSidebar)}
                     hoverIndicator='true'
                 > */}
-                    <Link to={`schedule`}>Schedule</Link>
+                    <Link to={`../schedule`}>Schedule</Link>
                 {/* </Paragraph>
 
                 <Paragraph
                     onClick={() => setShowSidebar(!showSidebar)}
                 > */}
-                    <Link to={`session/1`}>Selection</Link>
+                    <Link to={`../session/1`}>Selection</Link>
                 {/* </Paragraph> */}
             </Box>
       {/* </Box> */}
