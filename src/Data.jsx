@@ -15,6 +15,7 @@ export const sessionData = [
         ],
         end: new Date(2022, 12, 5, 10, 15),
         Desc:"",
+        location: "UC Building 1",
         isMulti:false,
     },
     {

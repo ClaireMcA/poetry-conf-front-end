@@ -73,7 +73,20 @@ const renderBoxes = () => {
             <Box 
             gridArea={time} 
             background="white"
-            border="true"
+            border={[
+                {
+                    size: "xsmall",
+                    color: "light-5",
+                    side: "top",
+                    style: "outset"
+                },
+                {
+                    size: "xsmall",
+                    color: "light-3",
+                    side: "right",
+                    style: "outset"
+                },
+            ]}
             id = {i}
             >
                 {valueDisplay}
@@ -99,12 +112,7 @@ const renderCards = () => {
             <Box 
             gridArea={time} 
             background="white"
-            border={{
-                // top,
-                // bottom,
-                size: "medium",
-                color: "green",
-            }}
+
             id = {i}
             >
                 {valueDisplay}
@@ -141,15 +149,6 @@ const Timetable = () => {
 
             <SessionCardData grid='time' value="0" />
 
-            {/* <Card gridArea="time" background="brand">
-                <CardHeader>Title</CardHeader>
-            </Card>
-            <Card gridArea="" background="green">
-                <CardHeader>Test</CardHeader>
-            </Card>
-            <Card gridArea="" background="dgreen">
-                <CardHeader>Test</CardHeader>
-            </Card> */}
 
         </Grid>
 
