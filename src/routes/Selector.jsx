@@ -5,6 +5,7 @@ import {
     Box,
     Card,
     CardHeader,
+    Paragraph,
 } from 'grommet';
 import * as GridData from '../Data';
 import SessionCardData from '../SessionCard';
@@ -137,6 +138,7 @@ const Selector = (props) => {
             responsive='true'
         >
             {renderCards()}
+            <Paragraph>{sessionID}</Paragraph>
 
             {/* <SessionCardData grid='t1' value="2" /> */}
 

@@ -5,10 +5,13 @@ import {
   Collapsible, 
   Heading, 
   Grommet,
+  NavBar,
+  Paragraph
   // ResponsiveContext, 
 } from 'grommet';
 import { FormNext, Menu } from 'grommet-icons';
-// import TimetableView from './Timetable';
+import { Outlet, Link } from "react-router-dom";
+import { Header } from '../Header';
 // import SelectorView from './Selector';
 
 
@@ -55,25 +58,29 @@ function Root() {
 
   return (
     <Grommet theme={theme} full>
+{/* 
+        <NavBar>
+            <Heading level='3'>Grommet Tutorial</Heading>
+            <Button icon={<Menu />} onClick={() => {}} />
+        </NavBar>
+        <Box flex align='center' justify='center'>
+            app body
+        </Box> */}
+
+
+
       <Box fill>
-        <AppBar>
+        {/* <AppBar>
           <Box>
             <Heading level='3' margin='none'>Out of the Ordinary</Heading>
-            <Box
-              direction='row'
-              align='center'
-            >
+            <Box direction='row' align='center'>
               <Heading level='2' margin='none'>Testing</Heading>
-              <Button 
-                icon={<FormNext />}  
-              />
+              <Button icon={<FormNext />} />
             </Box>
           </Box>
-          <Button 
-            icon={<Menu />}  
-            onClick={() => setShowSidebar(!showSidebar)}
-          />
-        </AppBar>
+          <Button icon={<Menu />} onClick={() => setShowSidebar(!showSidebar)} />
+        </AppBar> */}
+        <Header />
         <Box 
           direction='row' 
           flex
@@ -85,6 +92,7 @@ function Root() {
             align='center' 
             justify='top'
           >
+            <Outlet />
           </Box>
           <Collapsible
             direction="horizontal"
@@ -92,28 +100,28 @@ function Root() {
           >
             <Box
               flex
-              width='medium'
-              background='white'
+              width='100vw'
+              background='light-2'
               elevation='small'
-              // align='center'
-              justify='center'
+              align='center'
+              justify='top'
               alignContent='space-between'
+              pad='large'
               // direction="vertical"
             >
-              <Button 
-                primary 
-                color='light-1' 
-                label="Timetable"
-                onClick={() => {}}
-                fill="horizontal"
-              />
-              <Button 
-                primary 
-                color='light-1' 
-                label="Campus Maps"
-                onClick={() => {}}
-                fill="horizontal"
-              />
+                <Paragraph
+                    onClick={() => setShowSidebar(!showSidebar)}
+                    hoverIndicator='true'
+                >
+                    <Link to={`schedule`}>Schedule</Link>
+                </Paragraph>
+
+                <Paragraph
+                    onClick={() => setShowSidebar(!showSidebar)}
+                >
+                    <Link to={`session/1`}>Selection</Link>
+                </Paragraph>
+                {/* </Box> */}
             </Box>
           </Collapsible>
         </Box>

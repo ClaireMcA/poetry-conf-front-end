@@ -13,6 +13,7 @@ import Timetable from './routes/Timetable';
 import Selector from './routes/Selector';
 import Register from './routes/Register';
 import ErrorPage from "./error-page";
+import NavMenu from './NavMenu';
 
 
 
@@ -21,29 +22,37 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />, 
-  },
-  {
-    path: "signin",
-    element: <SignIn />,
-    errorElement: <ErrorPage />, 
-  },
-  {
-    path: "register",
-    element: <Register />,
-    errorElement: <ErrorPage />, 
-  },
-  {
-    path: "schedule",
-    element: <Timetable />,
-    errorElement: <ErrorPage />, 
     children: [
       {
-        path: "session/:sessionId",
-        element: <Selector />,
-        errorElement: <ErrorPage />, 
+        path: "signin",
+        element: <SignIn />,
       },
-    ],
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "schedule",
+        element: <Timetable />,
+        // children: [
+        //   {
+        //     path: "session/:sessionId",
+        //     element: <Selector />,
+        //     errorElement: <ErrorPage />, 
+        //   },
+        // ],
+      },
+      {
+        path: "session/:sessionId",
+        element: <Selector sessionID=':sessionID'/>,
+      },
+      {
+        path: "menu",
+        element: <NavMenu />,
+      }
+    ]
   },
+
 ]);
 
 
