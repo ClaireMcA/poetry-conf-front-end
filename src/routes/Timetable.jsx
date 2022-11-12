@@ -14,7 +14,7 @@ const getTimeAreas = () => {
     const timetableViewAreas = [{
         name:'time', 
         start: [1, 1], 
-        end:[2, 8],
+        end:[2, 3],
     }];
     // const gridValue = 0;
     // const value = 0;
@@ -147,7 +147,7 @@ const Timetable = () => {
         >
             {renderBoxes()}
 
-            <SessionCardData grid='time' value="0" />
+            <SessionCardData grid='time' value="1" />
 
 
         </Grid>
