@@ -10,6 +10,7 @@ import {
 import { FormNext, Menu } from 'grommet-icons';
 import TimetableView from './routes/Timetable';
 import SelectorView from './routes/Selector';
+import AdminSessions from './admin/AdminSessions';
 
 
 const theme = {
