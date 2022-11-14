@@ -10,6 +10,7 @@ import {
 import * as GridData from '../Data';
 import SessionCardData from '../SessionCard';
 import reportWebVitals from '../reportWebVitals';
+import { useParams } from 'react-router-dom';
 
 const getTimeAreas = () => {
     const timeViewAreas = [];
@@ -117,8 +118,12 @@ const renderCards = () => {
 
 const Selector = (props) => {
 
-    const sessionID = props.sessionID
+    // const sessionID = props.sessionID
 
+
+
+    let { sessionId } = useParams();
+    console.log(sessionId)
 
     return (
         <Grid
@@ -138,7 +143,7 @@ const Selector = (props) => {
             responsive='true'
         >
             {renderCards()}
-            <Paragraph>{sessionID}</Paragraph>
+            <Paragraph>{sessionId}</Paragraph>
 
             {/* <SessionCardData grid='t1' value="2" /> */}
 

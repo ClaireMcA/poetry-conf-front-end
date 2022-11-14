@@ -6,7 +6,8 @@ import {
   Heading, 
   Grommet,
   NavBar,
-  Paragraph
+  Paragraph,
+  MaskedInput
   // ResponsiveContext, 
 } from 'grommet';
 import { FormNext, Menu } from 'grommet-icons';
@@ -51,12 +52,46 @@ const AppBar = (props) => (
 
 
 
+// const testState = [{
+//     testUser: {
+//         s1: 2,
+//         s2: 2,
+//         s3: 2,
+//         s4: 2,
+//         s5: 2,
+//         s6: 2,
+//         s7: 2,
+//         s8: 2,
+//     },
+//     testUser2: {
+//         s1: 4,
+//         s2: 3,
+//         s3: 6,
+//         s4: 1,
+//         s5: 5,
+//         s6: 2,
+//         s7: 3,
+//         s8: 4,
+//     }
+// }]
 
+// const updateState = {
+//     testUser2: {
+//         s6: 3,
+//     }
+// }
 
 function Root(props) {
-  const [showSidebar, setShowSidebar] = useState(false);
+//   const [showSidebar, setShowSidebar] = useState(false);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false)
+//   const [userPreferences, setUserPreferences] = useState(testState)
 
-
+//   console.log(userPreferences)
+//   setUserPreferences({...userPreferences,     testUser2: {
+//     s6: 3,
+// }})
+//   console.log(userPreferences)
+  
   return (
     <Grommet theme={theme} full>
 {/* 
@@ -67,67 +102,56 @@ function Root(props) {
         <Box flex align='center' justify='center'>
             app body
         </Box> */}
+        
 
 
-
-      <Box fill>
-        {/* <AppBar>
-          <Box>
-            <Heading level='3' margin='none'>Out of the Ordinary</Heading>
-            <Box direction='row' align='center'>
-              <Heading level='2' margin='none'>Testing</Heading>
-              <Button icon={<FormNext />} />
-            </Box>
-          </Box>
-          <Button icon={<Menu />} onClick={() => setShowSidebar(!showSidebar)} />
-        </AppBar> */}
-        <Header isAuth="true" />
-        <Box 
-          direction='row' 
-          flex
-          overflow={{ horizontal: 'hidden' }}
-          margin={{ top: 'small' }}
-        >
-          <Box 
-            flex 
-            align='center' 
-            justify='top'
-          >
-            <Paragraph>
-                {/* {this.props.location} */}
-            </Paragraph>
-            <Outlet />
-          </Box>
-          <Collapsible
-            direction="horizontal"
-            open={showSidebar}
-          >
-            <Box
-              flex
-              width='100vw'
-              background='light-2'
-              elevation='small'
-              align='center'
-              justify='top'
-              alignContent='space-between'
-              pad='large'
-              // direction="vertical"
+        <Box fill>
+            <Header isAuth="true" />
+            <Box 
+                direction='row' 
+                flex
+                overflow={{ horizontal: 'hidden' }}
+                margin={{ top: 'small' }}
             >
-                <Paragraph
-                    onClick={() => setShowSidebar(!showSidebar)}
-                    hoverIndicator='true'
+                <Box 
+                    flex 
+                    align='center' 
+                    justify='top'
                 >
-                    <Link to={`schedule`}>Schedule</Link>
-                </Paragraph>
-
-                <Paragraph
-                    onClick={() => setShowSidebar(!showSidebar)}
-                >
-                    <Link to={`session/1`}>Selection</Link>
-                </Paragraph>
-                {/* </Box> */}
+                    <Paragraph>
+                    </Paragraph>
+                    <Outlet />
             </Box>
-          </Collapsible>
+            <Collapsible
+                direction="horizontal"
+                // open={showSidebar}
+            >
+                <Box
+                    flex
+                    width='100vw'
+                    background='light-2'
+                    elevation='small'
+                    align='center'
+                    justify='top'
+                    alignContent='space-between'
+                    pad='large'
+                    // direction="vertical"
+                >
+                    <Paragraph
+                        // onClick={() => setShowSidebar(!showSidebar)}
+                        hoverIndicator='true'
+                    >
+                        <Link to={`schedule`}>Schedule</Link>
+                    </Paragraph>
+
+                    <Paragraph
+                        // onClick={() => setShowSidebar(!showSidebar)}
+                    >
+                        <Link to={`session/1`}>Selection</Link>
+                    </Paragraph>
+                    {/* </Box> */}
+                </Box>
+            </Collapsible>
         </Box>
       </Box>
     </Grommet>

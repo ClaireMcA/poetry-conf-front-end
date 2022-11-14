@@ -32,8 +32,8 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "schedule",
-        element: <Timetable />,
+        path: ":dayName",
+        element: <Timetable dayName=':dayName'/>,
         // children: [
         //   {
         //     path: "session/:sessionId",
