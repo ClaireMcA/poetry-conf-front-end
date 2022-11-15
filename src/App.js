@@ -10,6 +10,7 @@ import {
 import { FormNext, Menu } from 'grommet-icons';
 import TimetableView from './routes/Timetable';
 import SelectorView from './routes/Selector';
+import AdminSessions from './admin/AdminSessions';
 
 
 const theme = {
@@ -117,6 +118,13 @@ function App() {
                 primary 
                 color='light-1' 
                 label="Campus Maps"
+                onClick={() => {}}
+                fill="horizontal"
+              />
+              <Button 
+                primary 
+                color='light-1' 
+                label="Admin"
                 onClick={() => {}}
                 fill="horizontal"
               />

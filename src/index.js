@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -12,8 +13,11 @@ import SignIn from './routes/SignIn';
 import Timetable from './routes/Timetable';
 import Selector from './routes/Selector';
 import Register from './routes/Register';
+import AdminSessions from './admin/AdminSessions';
 import ErrorPage from "./error-page";
 import NavMenu from './Menu';
+import SessionCreate from './admin/SessionCreate';
+import SessionEdit from './admin/SessionEdit';
 
 
 
@@ -49,6 +53,18 @@ const router = createBrowserRouter([
       {
         path: "menu",
         element: <NavMenu />,
+      },
+      {
+        path: "admin-sessions",
+        element: <AdminSessions />,
+      },
+      {
+        path: "admin-sessions/create",
+        element: <SessionCreate />,
+      },
+      {
+        path: "admin-sessions/:id",
+        element: <SessionEdit />,
       }
     ]
   },
