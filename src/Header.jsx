@@ -10,14 +10,14 @@ import {
     // ResponsiveContext, 
   } from 'grommet';
 import { FormNext, Menu } from 'grommet-icons';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 
 
 
-export const Header = () => {
+export const Header = (props) => {
 
 
 
@@ -35,9 +35,9 @@ export const Header = () => {
         />
     );
 
+    const navigate = useNavigate();
 
-
-    const [showSidebar, setShowSidebar] = useState(false);
+    // const [showSidebar, setShowSidebar] = useState(false);
 
     return (
         <AppBar>
@@ -49,9 +49,14 @@ export const Header = () => {
                 </Box>
             </Box>
             <Paragraph
-                    onClick={() => setShowSidebar(!showSidebar)}
+                    // onClick={() => setShowSidebar(!showSidebar)}
                 >
-                    <Link to={`menu`}>{<Menu />}</Link>
+                    {props.isAuth === "true" &&
+                        <React.Fragment>
+                            <button onClick={() => navigate(-1)}>Go back</button>
+                            <Link to={`menu`}>{<Menu />}</Link>
+                        </React.Fragment>
+                    }   
                 </Paragraph>
             {/* <Button icon={<Menu />} onClick={() => setShowSidebar(!showSidebar)} /> */}
         </AppBar>

@@ -12,6 +12,7 @@ import {
 import { FormNext, Menu } from 'grommet-icons';
 import { Outlet, Link } from "react-router-dom";
 import { Header } from '../Header';
+import { withRouter } from "react-router-dom";
 // import SelectorView from './Selector';
 
 
@@ -52,7 +53,7 @@ const AppBar = (props) => (
 
 
 
-function Root() {
+function Root(props) {
   const [showSidebar, setShowSidebar] = useState(false);
 
 
@@ -80,7 +81,7 @@ function Root() {
           </Box>
           <Button icon={<Menu />} onClick={() => setShowSidebar(!showSidebar)} />
         </AppBar> */}
-        <Header />
+        <Header isAuth="true" />
         <Box 
           direction='row' 
           flex
@@ -92,6 +93,9 @@ function Root() {
             align='center' 
             justify='top'
           >
+            <Paragraph>
+                {/* {this.props.location} */}
+            </Paragraph>
             <Outlet />
           </Box>
           <Collapsible
