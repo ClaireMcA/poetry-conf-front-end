@@ -63,6 +63,7 @@ export const NavMenu = () => {
                     onClick={() => setShowSidebar(!showSidebar)}
                 > */}
                     <Link to={`../session/1`}>Selection</Link>
+                    <Link to={`../admin`}>Admin</Link>
                 {/* </Paragraph> */}
             </Box>
       {/* </Box> */}

@@ -1,0 +1,15 @@
+.d-flex {
+    display: flex;
+}
+
+.gap-1 {
+    gap: 0.25rem;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: flex-end;
+}
