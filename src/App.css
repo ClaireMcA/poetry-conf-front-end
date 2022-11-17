@@ -13,3 +13,10 @@
 .align-items-baseline {
     align-items: flex-end;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+    /* height: 1rem; */
+    display: inline-block
+}

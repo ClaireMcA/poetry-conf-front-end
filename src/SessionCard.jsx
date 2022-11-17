@@ -13,6 +13,7 @@ import {
     // Grommet,
     // ResponsiveContext, 
   } from 'grommet';
+  import { Link } from 'react-router-dom';
 
 
 
@@ -49,6 +50,7 @@ const SessionCardData = (props) => {
     }
 
   return (
+
         <Card 
             gridArea={props.grid} 
             height="100%" 
@@ -58,6 +60,7 @@ const SessionCardData = (props) => {
             pad="small"
             // onClick={}
         >
+            <Link to='../session/1'>
                 <Paragraph
                     color="white"
                     // maxLines="3"
@@ -128,7 +131,9 @@ const SessionCardData = (props) => {
                     // ]}
                 /> */}
             {/* </CardBody> */}
+            </Link>
         </Card>
+
   );
 };
 

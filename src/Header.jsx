@@ -45,7 +45,7 @@ export const Header = (props) => {
     return (
         <AppBar>
             <Box>
-                <Heading level='3' margin='none'>Out of the Ordinary</Heading>
+                <Link to="./home" ><Heading level='3' margin='none'>Out of the Ordinary</Heading></Link>
                 <Box direction='row' align='center'>
                     {/* <Heading level='2' margin='none'>Testing</Heading>
                     <Button icon={<FormNext />} /> */}
@@ -105,6 +105,16 @@ export const Header = (props) => {
                                 </React.Fragment>
                             }
                         />
+                        <Route
+                            path="/admin"
+                            element={
+                                <React.Fragment>
+                                    {/* <Link to={`/Tuesday`}>{<FormPrevious />}</Link> */}
+                                    <Heading level='2' margin='none'>Admin Portal</Heading>
+                                    {/* <Link to={`../Monday`}>{<FormNext />}</Link> */}
+                                </React.Fragment>
+                            }
+                        />
                     </Routes>
                 </Box>
             </Box>
@@ -141,6 +151,14 @@ export const Header = (props) => {
                                 />
                                 <Route
                                     path="/session/:sessionId"
+                                    element={
+                                        <Box pad="medium">
+                                            <Link to={`../menu`}>{<Menu />}</Link>
+                                        </Box>
+                                    }
+                                />
+                                <Route
+                                    path="/admin"
                                     element={
                                         <Box pad="medium">
                                             <Link to={`../menu`}>{<Menu />}</Link>
