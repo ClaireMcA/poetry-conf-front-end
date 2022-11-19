@@ -9,6 +9,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 // import { Session } from "../lib/types";
 import dbPromise from "../lib/mongo";
 import { ObjectId } from "mongodb";
+import { SelectablePaper } from "../components/SelectablePaper";
 
 interface Props {
   papers: any[];
@@ -56,21 +57,12 @@ const Schedule = ({ papers, panels }: Props) => {
             )
           })}
         </Box>
-        <Box height="80vh" direction="row" fill="horizontal">
+        <Box height="100vh" direction="row" fill="horizontal">
           { panelPapers.map(({ _id, papers }) => {
             return (
-              <Box key={_id} direction="column" pad="small" flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
+              <Box key={_id} direction="column" pad="small" flex={{ grow: 1, shrink: 0}} style={{ flexBasis: 0}}> 
                 { papers.map(paper => (
-                  <Card pad="medium" key={paper._id} flex={{grow: 1, shrink: 0}} style={{ minWidth: 0, flexBasis: 0 }} >
-                    <Heading level="3" size="small">{ paper.title }</Heading>
-                    <Paragraph>{ paper.speaker.map((speaker: string) => (
-                        speaker + "/"
-                    ))}
-                     </Paragraph>
-                    
-
-
-                  </Card>
+                  <SelectablePaper key={paper._id} paper={paper} selected={false}></SelectablePaper>
                 ))}
               </Box>
 
