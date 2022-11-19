@@ -1,18 +1,13 @@
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Grommet } from "grommet";
-// import { initDb } from "../lib/mongo";
 import '../styles/globals.css';
 import '../styles/Home.module.css';
-
-
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-
-
 
   const theme = {
     global: {
@@ -32,7 +27,6 @@ export default function App({
     },
   };
 
-  // initDb().then(() => {
     return (
       <SessionProvider session={session}>
         {/* <Navbar /> */}
@@ -41,5 +35,4 @@ export default function App({
         </Grommet>
       </SessionProvider>
     );
-  // });
 }
