@@ -1,5 +1,8 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Grommet } from 'grommet';
+import Navbar from '../components/Navbar';
+import SignIn from '../components/SignIn';
 
 import Timetable from "../components/TimeTable";
 
@@ -10,14 +13,12 @@ const HomePage = () => {
   if (session) {
     return (
       <>
-        Signed in as {session.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-        <Timetable />;
+        <Navbar headerTitle={"Monday"} headerRight={"tuesday"}/>
+        <Timetable day="Monday"/>;
       </>
     );
   }
-
-  return <button onClick={() => signIn()}>Sign in</button>;
+  return <SignIn />;
 };
 
 export default HomePage;

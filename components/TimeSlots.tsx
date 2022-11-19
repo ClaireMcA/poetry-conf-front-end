@@ -12,21 +12,40 @@ interface TimeSlots {
 
 const TimeSlots: FC<TimeSlots> = (props) => {
   return (
-    <div style={{ width: "10vh" }}>
+    <div style={{ width: "8vh" }}>
       {props.timeSlots.map((time) => {
         const hour = as12HourTime(time + 8);
+        const styles = {
+          height: "50px",
+          border: "0.5px solid lightGrey",
+          padding: 5,
+          justifySelf: "center",
+        }
 
         return (
-          <div
-            key={hour}
-            style={{
-              height: "150px",
-              border: "1px solid black",
-              padding: 10,
-            }}
-          >
-            {hour}
-          </div>
+          <>
+            <div
+              key={hour}
+              style={styles}
+            >
+              {hour}
+            </div>
+            <div
+              key={hour + "(1)"}
+              style={styles}
+            >
+            </div>
+            <div
+              key={hour + "(2)"}
+              style={styles}
+            >
+            </div>
+            <div
+              key={hour + "(3)"}
+              style={styles}
+            >
+            </div>
+          </>          
         );
       })}
     </div>
