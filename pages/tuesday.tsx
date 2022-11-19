@@ -1,9 +1,7 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Navbar from "../components/Navbar"
-import SignIn from "../components/SignIn"
-
-
+import Navbar from "../components/Navbar";
+import SignIn from "../components/SignIn";
 import Timetable from "../components/TimeTable";
 
 const Tuesday = () => {
@@ -11,12 +9,12 @@ const Tuesday = () => {
     console.log(session);
   
     if (session) {
-      return (
-        <>
-          <Navbar headerTitle={"Tuesday"} headerRight={"wednesday"} headerLeft={" "}/>
-          <Timetable day="Tuesday"/>;
-        </>
-      );
+        return (
+            <>
+                <Navbar headerTitle={"Tuesday"} headerRight={"wednesday"} headerLeft={"monday"}/>
+                <Timetable day={6}/>
+            </>
+        );
     }
     return <SignIn />;
 };

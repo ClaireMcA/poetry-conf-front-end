@@ -1,20 +1,34 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Grommet } from 'grommet';
-import Navbar from '../components/Navbar';
 import SignIn from '../components/SignIn';
+import Monday from "./monday";
+import Tuesday from "./tuesday";
+import Wednesday from "./wednesday";
 
 import Timetable from "../components/TimeTable";
 
 const HomePage = () => {
   const { data: session } = useSession();
-  console.log(session);
+
+
+  const today = new Date().getDate();
 
   if (session) {
     return (
       <>
-        <Navbar headerTitle={"Monday"} headerRight={"tuesday"}/>
-        <Timetable day="Monday"/>;
+        {today === 5 &&
+            <Monday />
+        }
+        {today === 6 &&
+            <Tuesday />
+        }
+        {today === 7 &&
+            <Wednesday />
+        }
+        {((today !== 5) ||  (today !== 6) || (today !== 7)) &&
+            <Monday />
+        }
+
       </>
     );
   }

@@ -1,24 +1,22 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Navbar from "../components/Navbar";
-import SignIn from "../components/SignIn";
+import Navbar from '../components/Navbar';
+import SignIn from '../components/SignIn';
 import Timetable from "../components/TimeTable";
 
-const Wednesday = () => {
+const Monday = () => {
     const { data: session } = useSession();
     console.log(session);
-  
+    
     if (session) {
         return (
             <>
-                <Navbar headerTitle={"Wednesday"} headerLeft={"tuesday"}/>
-                <Timetable day={7}/>
+                <Navbar headerTitle={"Maps"} />
+                
             </>
         );
     }
     return <SignIn />;
 };
 
-export default Wednesday;
-
-
+export default Monday;

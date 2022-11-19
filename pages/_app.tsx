@@ -23,6 +23,7 @@ export default function App({
         dgreen: '#3D6045',
         blue: '#628BD5',
         dblue: '#132174',
+        lblue: '#A3C6D6',
       }
     },
   };

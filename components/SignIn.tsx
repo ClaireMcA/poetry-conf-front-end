@@ -26,6 +26,7 @@ const SignIn = () => {
                 pad="large"
                 justify="center"
                 height="70vh"
+                align="center"
             >
                 <Heading level='4' textAlign="center" margin="none">Hello! Welcome to the Out of the Ordinary Programme.</Heading>
                 <br/>

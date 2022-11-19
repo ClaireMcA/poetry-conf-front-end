@@ -6,6 +6,7 @@ import {
 } from 'grommet';
 import { FormNext, FormPrevious, Menu } from 'grommet-icons';
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 import Timetable from "../components/TimeTable";
 
@@ -15,11 +16,12 @@ interface HeaderProps {
   headerLeft?: string;
 }
 
-const HomePage = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
+const Navbar = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
   const { data: session } = useSession();
   console.log(session);
 
 
+  const router = useRouter()
  
 
 
@@ -34,7 +36,8 @@ const HomePage = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
         background='white'
         pad={{ left: 'large', right: 'small', vertical: 'small' }}
         elevation='medium'
-        style={{ zIndex: '1' }}
+        style={{ zIndex: '1', }}
+
       >
         <Box>
           <Link href="/" >
@@ -64,4 +67,4 @@ const HomePage = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
   );
 };
 
-export default HomePage;
+export default Navbar;

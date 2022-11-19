@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import Selector from "../components/Selector";
 import Navbar from "../components/Navbar"
 import SignIn from "../components/SignIn";
-import { useRouter } from "next/router";
-import { Box, Card, Heading } from "grommet";
-import { FormNext } from "grommet-icons";
-import Link from 'next/link'
+// import { useRouter } from "next/router";
+import { Box, Card, Heading, Paragraph  } from "grommet";
+// import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react";
-import { GetServerSideProps, GetStaticProps } from "next";
-import { Session } from "../lib/types";
+// import { GetServerSideProps, GetStaticProps } from "next";
+// import { Session } from "../lib/types";
 import dbPromise from "../lib/mongo";
 import { ObjectId } from "mongodb";
 
@@ -33,14 +31,17 @@ export async function getStaticProps() {
 
 const Schedule = ({ papers, panels }: Props) => {
   const { data } = useSession();
-  console.log(papers);
-  console.log(panels);
+  // console.log("Papers")
+  // console.log(papers);
+  // console.log("Panels")
+  // console.log(panels);
   const panelPapers = panels.map(panel => ({
     _id: panel._id,
     title: panel.title,
     papers: papers.filter(paper => paper.panelId === panel._id).sort((a,b) => a.order - b.order)
   }));
-  console.log(panelPapers)
+  // console.log("panelPapers")
+  // console.log(panelPapers)
 
   return data ? (
     <div>
@@ -50,18 +51,25 @@ const Schedule = ({ papers, panels }: Props) => {
           { panelPapers.map(({ title }) => {
             return (
               <Box pad="small" key={title} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
-                { title }
+                <Heading margin="none" level="3" size="small">{ title }</Heading>
               </Box>
             )
           })}
         </Box>
-        <Box height="large" direction="row" fill="horizontal">
-          { panelPapers.map(({ _id, title, papers }) => {
+        <Box height="80vh" direction="row" fill="horizontal">
+          { panelPapers.map(({ _id, papers }) => {
             return (
               <Box key={_id} direction="column" pad="small" flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
                 { papers.map(paper => (
                   <Card pad="medium" key={paper._id} flex={{grow: 1, shrink: 0}} style={{ minWidth: 0, flexBasis: 0 }} >
-                    { paper.title }
+                    <Heading level="3" size="small">{ paper.title }</Heading>
+                    <Paragraph>{ paper.speaker.map((speaker: string) => (
+                        speaker + "/"
+                    ))}
+                     </Paragraph>
+                    
+
+
                   </Card>
                 ))}
               </Box>
