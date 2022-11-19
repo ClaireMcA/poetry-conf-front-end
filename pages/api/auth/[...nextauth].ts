@@ -12,5 +12,23 @@ export const authOptions: NextAuthOptions = {
       issuer: process.env.AUTH0_ISSUER,
     }),
   ],
+  callbacks: {
+    session: ({ session, user, token }) => {
+      console.log(session);
+      console.log(user);
+      console.log(token);
+      return {
+        ...session,
+        email: token.email
+      }
+    },
+    jwt: ({ token, profile }) => {
+      return {
+        ...token,
+        profile
+      }
+    }
+  },
+  session: { strategy: "jwt" }
 };
 export default NextAuth(authOptions);
