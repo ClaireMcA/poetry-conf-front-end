@@ -67,11 +67,10 @@ const Timetable = ({ day }: props) => {
           marginRight: "2vw",
         }}
       >
-
-
+        {/* Render cards for sessions that are not multi-stream */}
         {filteredSessions.map((session) => {
           return (
-            <Link href={"/" + session._id}>
+            <Link href={"/session/" + session._id}>
               <Card 
                 width={"80vw"} 
                 key={session._id}
@@ -85,15 +84,18 @@ const Timetable = ({ day }: props) => {
               >
                 <Heading level='3' margin='none'>{session.title}</Heading>
                 <Paragraph size="medium" margin='none'>{session.speaker} </Paragraph>
-                <Link style={{textDecoration: 'underline'}} href={ "/" + session.location}><Paragraph size="small" margin='none' color={"bldgreenue"}>
-                  {session.location}
-                </Paragraph></Link>
+                <Paragraph size="small" margin='none' color={"bldgreenue"}>
+                  <Link style={{textDecoration: 'underline'}} href={ "/maps/" + session.location}>
+                    {session.location}
+                  </Link>
+                </Paragraph>
               </Card>
             </Link>
           
           );
         })}
 
+        {/* Render cards for sessions that are multi-stream */}
         {/* {filteredMultiSessions.map((session) => {
           return (
             <Link href={"/tuesday"}>

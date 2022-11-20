@@ -96,7 +96,7 @@ export const sessionData: SessionData[] = [
     bio: "",
     speaker:"",
     affiliation:"",
-    location:""
+    location:"Imagine Center"
 },
 {
     _id:"34124cdc-df79-49c6-9404-c2712b725607",

@@ -5,8 +5,6 @@ import Monday from "./monday";
 import Tuesday from "./tuesday";
 import Wednesday from "./wednesday";
 
-import Timetable from "../components/TimeTable";
-
 const HomePage = () => {
   const { data: session } = useSession();
 

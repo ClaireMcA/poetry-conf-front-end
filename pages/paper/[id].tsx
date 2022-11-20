@@ -47,7 +47,7 @@ const PaperInfo = () => {
 
   const router = useRouter()
   const paperId  = router.query
-  const paperData = dataWithDates.find(item => item._id == paperId.pid)
+  const paperData = dataWithDates.find(item => item._id == paperId.id)
   console.log(paperData)
   console.log(paperId)
 
