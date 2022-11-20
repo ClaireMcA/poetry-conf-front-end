@@ -14,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     const session = await getSession();
-    const token = await getToken({ req });
+    const token = await getToken({ req, raw: true})
     console.log(session);
     console.log(token);
     if (!session?.user?.email) {

@@ -11,6 +11,7 @@ import dbPromise from "../lib/mongo";
 import { ObjectId } from "mongodb";
 import { SelectablePaper } from "../components/SelectablePaper";
 
+
 interface Props {
   papers: any[];
   panels: any[];

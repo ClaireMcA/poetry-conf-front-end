@@ -1,10 +1,11 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Navbar from '../components/Navbar';
-import SignIn from '../components/SignIn';
-import Timetable from "../components/TimeTable";
+import Navbar from '../../components/Navbar';
+import SignIn from '../../components/SignIn';
+import Timetable from "../../components/TimeTable";
+import { Heading } from 'grommet';
 
-const Maps = () => {
+const InspireCenter = () => {
     const { data: session } = useSession();
     console.log(session);
     
@@ -12,6 +13,7 @@ const Maps = () => {
         return (
             <>
                 <Navbar headerTitle={"Maps"} />
+                <Heading>This is the Inspire Center!</Heading>
                 
             </>
         );
@@ -19,4 +21,4 @@ const Maps = () => {
     return <SignIn />;
 };
 
-export default Maps;
+export default InspireCenter;

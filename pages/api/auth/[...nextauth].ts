@@ -26,6 +26,7 @@ export const authOptions: NextAuthOptions = {
       return {
         ...token,
         profile
+        
       }
     }
   },

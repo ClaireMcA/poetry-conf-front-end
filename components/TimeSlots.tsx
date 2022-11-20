@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react'
 
 const as12HourTime = (time: number) => {
   if (time < 12) return `${time}am`;
@@ -13,7 +13,7 @@ interface TimeSlots {
 const TimeSlots: FC<TimeSlots> = (props) => {
   return (
     <div style={{ width: "20vw"  }}>
-      {props.timeSlots.map((time) => {
+      {props.timeSlots.map((time: number) => {
         const hour = as12HourTime(time + 9);
         const styles = {
           height: "49.5px",

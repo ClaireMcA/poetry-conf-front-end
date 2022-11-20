@@ -32,12 +32,14 @@ import { ObjectId } from "mongodb";
 
 const getPaperDisplayTime = (sessionId: string) => {
   const currentSession = dataWithDates.find(item => item._id === sessionId);
-  const start = (currentSession.start.getHours() < 13 ? currentSession.start.getHours() : currentSession.start.getHours() - 12) + ":" + (currentSession.start.getMinutes() == 0 ? "00" : currentSession.start.getMinutes());
-  const end = (currentSession.end.getHours() < 13 ? currentSession.end.getHours() : currentSession.end.getHours() - 12) + ":" + (currentSession.end.getMinutes() == 0 ? "00" : currentSession.end.getMinutes());
-  const startTime = currentSession.start.getHours() < 12 ? `${start}am` : `${start}pm`
-  const endTime = currentSession.end.getHours() < 12 ? `${end}am` : `${end}pm`
-  const runTime = startTime + " - " + endTime;
-  return(runTime)
+  if (currentSession !== undefined) {
+    const start = (currentSession.start.getHours() < 13 ? currentSession.start.getHours() : currentSession.start.getHours() - 12) + ":" + (currentSession.start.getMinutes() == 0 ? "00" : currentSession.start.getMinutes());
+    const end = (currentSession.end.getHours() < 13 ? currentSession.end.getHours() : currentSession.end.getHours() - 12) + ":" + (currentSession.end.getMinutes() == 0 ? "00" : currentSession.end.getMinutes());
+    const startTime = currentSession.start.getHours() < 12 ? `${start}am` : `${start}pm`
+    const endTime = currentSession.end.getHours() < 12 ? `${end}am` : `${end}pm`
+    const runTime = startTime + " - " + endTime;
+    return(runTime)
+  }
 }
 
 
@@ -60,13 +62,13 @@ const PaperInfo = () => {
           margin="2vw"
         >
           <Heading level="1" >
-            {paperData.title}Test
+            {(paperData !== undefined) && paperData.title}
           </Heading>
           <Heading level="3" >
-            {paperData.speaker}
+          {(paperData !== undefined) && paperData.speaker}
           </Heading>
           <Heading level="3" >
-            {getPaperDisplayTime(paperId)}
+            {(paperId !== undefined) && getPaperDisplayTime(paperId.toString())}
           </Heading>
         </Box>
       </>

@@ -17,11 +17,12 @@
     "grommet": "^2.27.0",
     "grommet-icons": "^4.8.0",
     "mongodb": "^4.12.0",
-    "next": "13.0.3",
+    "next": "^12.3.3",
     "next-auth": "^4.16.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "styled-components": "^5.3.6",
+    "swr": "^1.3.0",
     "typescript": "4.9.3"
   }
 }

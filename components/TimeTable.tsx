@@ -1,48 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { dataWithDates, sessionData } from "../lib/data";
 import TimeSlots from "./TimeSlots";
 import { Paragraph, Card, Heading, Box } from 'grommet'
-import Link from 'next/link'
+import Link from 'next/link';
+import dbPromise from "../lib/mongo";
+import { ObjectId } from "mongodb";
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
- interface props {
-   day: number;
- }
 
 
-// const getSessionDisplayTime = (sessionId: string) => {
-//   const currentSession = dataWithDates.find(item => item._id === sessionId);
-//   const start = (currentSession.start.getHours() < 13 ? currentSession.start.getHours() : currentSession.start.getHours() - 12) + ":" + (currentSession.start.getMinutes() == 0 ? "00" : currentSession.start.getMinutes());
-//   const end = (currentSession.end.getHours() < 13 ? currentSession.end.getHours() : currentSession.end.getHours() - 12) + ":" + (currentSession.end.getMinutes() == 0 ? "00" : currentSession.end.getMinutes());
-//   const startTime = currentSession.start.getHours() < 12 ? `${start}am` : `${start}pm`
-//   const endTime = currentSession.end.getHours() < 12 ? `${end}am` : `${end}pm`
-//   const runTime = startTime + " - " + endTime;
-//   return(runTime)
-// }
-
-const getMarginFromTime = (sessionId: string, day: number) => {
-  const currentSession = dataWithDates.find(item => item._id === sessionId);
-  const dayStart = new Date(2022, 11, day, 9, 0)
-  const diffMs = currentSession.start - dayStart;
-  const diffMins = diffMs / 60000
-  const value = (diffMins / 15) * 50
-  const margin = {top: (value + "px")}
-
-  return margin
+interface props {
+  day: number;
 }
 
-const getHeightFromTime = (sessionId: string) => {
-  const currentSession = dataWithDates.find(item => item._id === sessionId);
-  const diffMs = currentSession.end - currentSession.start;
-  const diffMins = diffMs / 60000
-  const value = (diffMins / 15) * 50
-  const height = value + "px"
-
-  return height
-}
-
-const Timetable = ({ day }: props) => {
+const Timetable = ({ day }: props,) => {
   
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+      (async () => {
+          const results = await fetch("/api/session").then(response => response.json());
+          setRestaurants(results);
+      })();
+  }, []);
+  
+
   const filteredDay = dataWithDates.filter(item => item.start.getDate() === day)
+  console.log("Sessions!!")
+  console.log(sessionData)
   const filteredSessions = filteredDay.filter(item => item.isMulti === false)
   const filteredMultiSessions = filteredDay.filter(item => item.isMulti === true)
 
@@ -70,7 +56,7 @@ const Timetable = ({ day }: props) => {
         {/* Render cards for sessions that are not multi-stream */}
         {filteredSessions.map((session) => {
           return (
-            <Link href={"/session/" + session._id}>
+            <Link key={session._id} href={"/session/" + session._id}>
               <Card 
                 width={"80vw"} 
                 key={session._id}
@@ -122,5 +108,33 @@ const Timetable = ({ day }: props) => {
     </div>
   );
 };
+
+
+
+const getMarginFromTime = (sessionId: string, day: number) => {
+  const currentSession = dataWithDates.find(item => item._id === sessionId);
+  if (currentSession !== undefined) {
+    const dayStart = new Date(2022, 11, day, 9, 0)
+    const diffMs = currentSession.start.getTime() - dayStart.getTime();
+    const diffMins = diffMs / 60000
+    const value = (diffMins / 15) * 50
+    const margin = {top: (value + "px")}
+
+    return margin
+  }
+}
+
+const getHeightFromTime = (sessionId: string) => {
+  const currentSession = dataWithDates.find(item => item._id === sessionId);
+  if (currentSession !== undefined) {
+    const diffMs = currentSession.end.getTime() - currentSession.start.getTime();
+    const diffMins = diffMs / 60000
+    const value = (diffMins / 15) * 50
+    const height = value + "px"
+
+    return height
+  }
+}
+
 
 export default Timetable;

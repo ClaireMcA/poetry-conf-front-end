@@ -28,18 +28,20 @@ const SignIn = () => {
                 height="70vh"
                 align="center"
             >
-                <Heading level='4' textAlign="center" margin="none">Hello! Welcome to the Out of the Ordinary Programme.</Heading>
+                <Heading level='3' textAlign="center" margin="none">Hello! Welcome to the Out of the Ordinary Programme.</Heading>
                 <br/>
                 <Box 
-                    height="small" 
-                    width="small"
+                    height="12rem" 
+                    width="12rem"
                     alignSelf="center"
                 >
                     <Image
                         fit="cover"
+                        alt="Robert Delaunay, Rythme No.1"
                         src="https://static.wixstatic.com/media/b0942c_83801cabfdec4d0ab454dc6122caf7c8~mv2.jpg/v1/fill/w_1722,h_1566,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/_%20Robert_Delaunay%2C_1938%2C_Rythme_n%C2%B01%2C_Decoration_for_the_Salon_des_Tuileries%2C_oil_on_canvas.jpg"
                     />
                 </Box>
+                <Paragraph textAlign="center" size="8px">Robert Delaunay, Rythme No.1, 1938, 529 x 592 cm, <br/>Musée d'Art moderne de la Ville de Paris, Public Domain</Paragraph>
                 <br/>
                 <br/>
                 <Paragraph textAlign="center" margin="none">Sign in below to view and customise your schedule.</Paragraph>

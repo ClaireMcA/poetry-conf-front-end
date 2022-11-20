@@ -1,14 +1,17 @@
 export type Session = {
   _id: string;
   title: string;
-  startTime: string;
-  endTime: string;
+  category: string;
   description: string;
+  endTime: Date;
   isMulti: boolean;
-  panel: Panel[];
+  location: string;
+  speaker: Array<object>
+  startTime: Date;
 };
 
 export type Panel = {
   id: string;
   title: string;
 };
+
