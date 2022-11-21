@@ -10,7 +10,7 @@ import type { Session, Speaker } from "../../lib/types";
 
 
 
-const sessionInfo = () => {
+const SessionInfo = () => {
   
   const [session, setSession] = useState([]);
   const router = useRouter();
@@ -104,7 +104,7 @@ console.log(currentSessionId)
   );
 };
 
-export default sessionInfo;
+export default SessionInfo;
 
 
 const getSpeakers = (currentSession: Session) => {
