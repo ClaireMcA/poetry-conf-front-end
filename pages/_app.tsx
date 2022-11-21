@@ -3,11 +3,12 @@ import type { AppProps } from "next/app";
 import { Grommet } from "grommet";
 import '../styles/globals.css';
 import '../styles/Home.module.css';
+import '../styles/fonts.css';
 import { Session } from "next-auth";
+
 
 export default function App({Component, pageProps,}: AppProps<{session: Session;}>) {
   
-
   const theme = {
     global: {
       font: {
