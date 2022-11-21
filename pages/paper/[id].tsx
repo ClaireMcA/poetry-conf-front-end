@@ -93,7 +93,7 @@ import type { Session, Speaker } from "../../lib/types";
 
 
 
-const paperInfo = () => {
+const PaperInfo = () => {
   
   const [papers, setPapers] = useState([]);
   const router = useRouter();
@@ -115,8 +115,7 @@ const paperInfo = () => {
     })).find(
       item => item._id === currentSessionId)
 
-console.log(papers)
-console.log(currentSessionId)
+
   return (
     <>
         <NavbarSimple/>    
@@ -172,7 +171,7 @@ console.log(currentSessionId)
   );
 };
 
-export default paperInfo;
+export default PaperInfo;
 
 
 const getSpeakers = (currentSession: Session) => {
@@ -195,13 +194,3 @@ const getSpeakers = (currentSession: Session) => {
     return <div>Sorry not a vaild Session</div>
   }
 
-const getSessionDisplayTime = (session: Session) => {
-    const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
-    const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
-    const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`
-    const endTime = session.endTime.getHours() < 12 ? `${end}am` : `${end}pm`
-    const runTime = startTime + " - " + endTime;
-
-    return runTime;
-
-}

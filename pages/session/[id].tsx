@@ -24,13 +24,6 @@ const SessionInfo = () => {
       })();
   }, []);
 
-//   const thisSession = session.filter((item: Session) => item._id === currentSessionId)
-
-//   const data = session.map((item: Session) => ({
-//     ...item,
-//     startTime: new Date(item.startTime),
-//     endTime: new Date(item.endTime)
-//   }))
 
 const thisSession = session.map((item: Session) => ({
     ...item,

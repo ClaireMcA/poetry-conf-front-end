@@ -102,7 +102,6 @@ const Selection = () => {
   const { data: session } = useSession();
   const [panels, setPanels] = useState([]);
   const [papers, setPapers] = useState([]);
-  const [sessions, setSessions] = useState([]);
   const router = useRouter();
   const currentSessionId  = router.query.id;
 

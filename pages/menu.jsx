@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 const Monday = () => {
     const { data: session } = useSession();
-    console.log(session);
+    // console.log(session);
     const router = useRouter()
     
     if (session) {
