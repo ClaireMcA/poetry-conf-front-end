@@ -120,17 +120,11 @@ const Selection = () => {
 
   const sessionPanels = panels.filter((panel: Panel) => panel.sessionId === currentSessionId)
 
-  console.log("panels")
-  console.log(panels)
-  console.log("sessionPanels")
-  console.log(sessionPanels)
-  console.log("papers")
-  console.log(papers)
 
   const panelPapers = sessionPanels.map((panel: Panel) => ({
     _id: panel._id,
     title: panel.title,
-    papers: papers.filter((paper: Paper) => paper.panelId === panel._id).sort((a,b) => a.order - b.order)
+    papers: papers.filter((paper: Paper) => paper.panelId === panel._id).sort((a: Paper ,b: Paper) =>  a.order - b.order)
   }));
 
 
