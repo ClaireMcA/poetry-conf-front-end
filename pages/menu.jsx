@@ -51,16 +51,16 @@ const Monday = () => {
                             <Box
                                 margin="large"
                             >
-                                <Heading margin="none" level="2">My Schedule</Heading>
+                                <Heading margin="none" level="2">Schedule</Heading>
                             </Box>
                         </Link>
-                        <Link href="/maps">
+                        {/* <Link href="/maps">
                             <Box
                                 margin="large"
                             >
                                 <Heading  margin="none" level="2">Maps</Heading>
                             </Box>
-                        </Link>
+                        </Link> */}
                         <Box>
                             <Box
                                 margin="large"

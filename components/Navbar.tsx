@@ -36,8 +36,8 @@ const Navbar = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
         background='white'
         pad={{ left: 'large', right: 'small', vertical: 'small' }}
         elevation='medium'
-        style={{ zIndex: '1', }}
-
+        style={{ zIndex: '1', position: "fixed", }}
+        width="100vw"
       >
         <Box>
           <Link href="/" >
@@ -62,6 +62,10 @@ const Navbar = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
         <Box pad="medium">
             <Link href="/menu">{<Menu />}</Link>
         </Box>
+      </Box>
+      <Box
+        pad={{ left: 'large', right: 'small', vertical: '35px' }}
+      >
       </Box>
     </>
   );

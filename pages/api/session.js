@@ -7,11 +7,11 @@ export default async function handler(request, response) {
 
     const results = await collection.find({})
     .project({
-        "grades": 0,
+        "something": 0,
         "borough": 0,
         "restaurant_id": 0
     })
-    .limit(15).toArray();
+    .limit(50).toArray();
 
     response.status(200).json(results);
 

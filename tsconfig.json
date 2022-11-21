@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/session/[id].js", "pages/api/papers/[id].js", "pages/api/panel/[id].js", "pages/api/session/index.js", "pages/api/papers/index.js", "pages/api/panel/index.js", "pages/api/session.js", "lib/mongo.js", "pages/api/session.js"],
   "exclude": ["node_modules"]
 }

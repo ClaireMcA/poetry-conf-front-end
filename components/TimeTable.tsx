@@ -1,121 +1,112 @@
 import React, { useEffect, useState } from "react";
-import { dataWithDates, sessionData } from "../lib/data";
+// import { dataWithDates, sessionData } from "../lib/data";
 import TimeSlots from "./TimeSlots";
 import { Paragraph, Card, Heading, Box } from 'grommet'
 import Link from 'next/link';
-import dbPromise from "../lib/mongo";
-import { ObjectId } from "mongodb";
-import { useRouter } from 'next/router';
-import useSWR from 'swr';
+import type { Session, Speaker, props } from '../lib/types'
 
-
-
-interface props {
-  day: number;
-}
 
 const Timetable = ({ day }: props,) => {
   
-  const [restaurants, setRestaurants] = useState([]);
+  const [session, setSession] = useState([]);
 
   useEffect(() => {
       (async () => {
           const results = await fetch("/api/session").then(response => response.json());
-          setRestaurants(results);
+          setSession(results);
       })();
   }, []);
-  
 
-  const filteredDay = dataWithDates.filter(item => item.start.getDate() === day)
-  console.log("Sessions!!")
-  console.log(sessionData)
-  const filteredSessions = filteredDay.filter(item => item.isMulti === false)
-  const filteredMultiSessions = filteredDay.filter(item => item.isMulti === true)
+  const filteredDay = session.map((item: Session) => ({
+    ...item,
+    startTime: new Date(item.startTime),
+    endTime: new Date(item.endTime)
+  })).filter(
+    item => item.startTime.getDate() === day
+  )
+
 
   return (
     <div
       style={{
         display: "flex",
-        // justifyContent: "left",
         flexDirection: "row",
         width: "100%",
       }}
     >
-      {/* <Paragraph>Today is {day}</Paragraph> */}
       <TimeSlots timeSlots={Array.from({ length: 13 }, (_, i) => i)} />
       <div
         style={{
           display: "flex",
-          // justifyContent: "left",
           flexDirection: "column",
           width: "100%",
           marginLeft: "2vw",
           marginRight: "2vw",
         }}
       >
-        {/* Render cards for sessions that are not multi-stream */}
-        {filteredSessions.map((session) => {
+
+        {/* Render cards for each session */}
+        {filteredDay.map((session) => {
           return (
-            <Link key={session._id} href={"/session/" + session._id}>
+
+            <Link key={session._id} href={(session.isMulti) ? "/selection/" + session._id : "/session/" + session._id}>
               <Card 
                 width={"80vw"} 
                 key={session._id}
-                background="lblue"
+                background={session.category}
                 border={{ color: 'blue', size: 'xsmall'}}
-                pad={{top: "4px", horizontal: "10px", bottom:"10px"}}
-                height={getHeightFromTime(session._id)}
-                margin={getMarginFromTime(session._id, day)}
+                pad={{top: "10px", horizontal: "10px", bottom:"10px"}}
+                height={getHeightFromTime( session )}
+                margin={getMarginFromTime(day, session)}
                 style={{position: "absolute"}}
-                justify="center"
               >
                 <Heading level='3' margin='none'>{session.title}</Heading>
-                <Paragraph size="medium" margin='none'>{session.speaker} </Paragraph>
-                <Paragraph size="small" margin='none' color={"bldgreenue"}>
-                  <Link style={{textDecoration: 'underline'}} href={ "/maps/" + session.location}>
+                <Paragraph size="small" margin={{horizontal: "none", top:"none", bottom:"7px"}}>{getSessionDisplayTime(session)}</Paragraph>
+                {!session.isMulti && <Paragraph size="small" margin={{horizontal: "none", top:"7px", bottom:"7px"}} color={"bldgreenue"}>
+                  {/* <Link style={{textDecoration: 'underline'}} href={ "/maps/" + session.location}> */}
                     {session.location}
-                  </Link>
-                </Paragraph>
+                  {/* </Link> */}
+                </Paragraph>}
+                {/* {session.speaker[0].firstName && <Heading weight="normal" level="3" margin={{horizontal: "none", top:"10px", bottom:"10px"}}>{getSpeakers(session)}</Heading>} */}
               </Card>
             </Link>
           
           );
         })}
 
-        {/* Render cards for sessions that are multi-stream */}
-        {/* {filteredMultiSessions.map((session) => {
-          return (
-            <Link href={"/tuesday"}>
-              <Card 
-                width={"80vw"} //adjusts the width of the session
-                key={session._id}
-                background="dblue" . //changes the colour of the session
-                border={{ color: 'blue', size: 'xsmall'}}
-                pad={{top: "4px", horizontal: "10px", bottom:"10px"}}
-                height={getHeightFromTime(session._id)} 
-                margin={getMarginFromTime(session._id, day)} //renders the session relative to the time
-                style={{position: "absolute"}}
-                justify="center"
-              >
-                <Heading level='3' margin='none'>{session.title}</Heading>
-                <Paragraph size="medium" margin='none'>{session.speaker} </Paragraph>
-                <Paragraph size="small" margin='none'>{getSessionDisplayTime(session._id)}</Paragraph>
-              </Card>
-            </Link>
-          
-          );
-        })} */}
       </div>
     </div>
   );
 };
 
+export default Timetable;
+
+const getSpeakers = (currentSession: Session) => {
+  if (currentSession !== undefined) {
+    if (currentSession.speaker[1] === undefined ) {
+      const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName
+      return singleSpeaker;
+    } else {
+    const speakers: Array<string> = []
+    {currentSession.speaker.forEach((speaker: Speaker) => {
+      speakers.push(
+          speaker.lastName
+      )
+    })}
+    const multiSpeakers = speakers.join(' / ');
+
+    return multiSpeakers;
+    }
+  }
+  return <div>Sorry not a vaild Session</div>
+}
 
 
-const getMarginFromTime = (sessionId: string, day: number) => {
-  const currentSession = dataWithDates.find(item => item._id === sessionId);
+
+const getMarginFromTime = ( day: number, currentSession: Session) => {
   if (currentSession !== undefined) {
     const dayStart = new Date(2022, 11, day, 9, 0)
-    const diffMs = currentSession.start.getTime() - dayStart.getTime();
+    const diffMs = currentSession.startTime.getTime() - dayStart.getTime();
     const diffMins = diffMs / 60000
     const value = (diffMins / 15) * 50
     const margin = {top: (value + "px")}
@@ -124,10 +115,9 @@ const getMarginFromTime = (sessionId: string, day: number) => {
   }
 }
 
-const getHeightFromTime = (sessionId: string) => {
-  const currentSession = dataWithDates.find(item => item._id === sessionId);
+const getHeightFromTime = (currentSession: Session) => {
   if (currentSession !== undefined) {
-    const diffMs = currentSession.end.getTime() - currentSession.start.getTime();
+    const diffMs = currentSession.endTime.getTime() - currentSession.startTime.getTime();
     const diffMins = diffMs / 60000
     const value = (diffMins / 15) * 50
     const height = value + "px"
@@ -137,4 +127,13 @@ const getHeightFromTime = (sessionId: string) => {
 }
 
 
-export default Timetable;
+const getSessionDisplayTime = (session: Session) => {
+  const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
+  const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
+  const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`
+  const endTime = session.endTime.getHours() < 12 ? `${end}am` : `${end}pm`
+  const runTime = startTime + " - " + endTime;
+
+  return runTime;
+
+}

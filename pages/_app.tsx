@@ -24,6 +24,11 @@ export default function App({
         blue: '#628BD5',
         dblue: '#132174',
         lblue: '#A3C6D6',
+        misc: "#E2AE47",
+        meal: "#FFFFFF",
+        session: "#132174",
+        keynote: '#3D6045',
+        extra: "#D2E3EB"
       }
     },
   };

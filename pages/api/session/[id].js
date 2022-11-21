@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { ObjectId } from "mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
-import dbPromise from "../../../lib/mongo";
+// import { ObjectId } from "mongodb";
+// import type { NextApiRequest, NextApiResponse } from "next";
+// import dbPromise from "../../../lib/mongo";
 
 // export default function handler(req: NextApiRequest, res: NextApiResponse) {
 //   switch (req.method) {

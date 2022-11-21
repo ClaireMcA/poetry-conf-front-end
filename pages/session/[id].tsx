@@ -1,79 +1,139 @@
-import React from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
-import SignIn from "../../components/SignIn";
-import { useRouter } from 'next/router';
-import { dataWithDates } from "../../lib/data";
-import { Box, Heading, Paragraph } from 'grommet';
+import React, { useEffect, useState } from "react";
+// import { dataWithDates, sessionData } from "../lib/data";
 import NavbarSimple from "../../components/NavbarSimple";
-import Link from "next/link";
-import dbPromise from "../../lib/mongo";
-import { ObjectId } from "mongodb";
-
-
-interface Props {
-//   papers: any[];
-//   panels: any[];
-  sessions: any[];
-}
-
-// export async function getServerSideProps() {
-//   const db = await dbPromise;
-//   const session = await db.collection('sessions').find({ _id: new ObjectId('63785f35966480e10172ab6b')});
-// //   const panels = await db.collection('panels').find(session ? { sessionId: session._id.toString() } : {}).toArray();
-// //   const papers = await db.collection('papers').find({ "$or": panels.map(panel => ({ panelId: panel._id.toString() })) }).toArray();
-
-//   return {
-//     props: {
-//         sessions: session
-//     }
-//   }
-// }
+import { Paragraph, Card, Heading, Box } from 'grommet'
+import Link from 'next/link';
+import { useRouter } from 'next/router'
+import type { Session, Speaker } from "../../lib/types";
 
 
 
-const getSessionDisplayTime = (session: object) => {
-    // const sessionData = dataWithDates.find(item => item._id == sessionId.id)
-    const sessionData = session
-    // console.log(sessionData)
-    const start = (sessionData.start.getHours() < 13 ? sessionData.start.getHours() : sessionData.start.getHours() - 12) + ":" + (sessionData.start.getMinutes() == 0 ? "00" : sessionData.start.getMinutes());
-    const end = (sessionData.end.getHours() < 13 ? sessionData.end.getHours() : sessionData.end.getHours() - 12) + ":" + (sessionData.end.getMinutes() == 0 ? "00" : sessionData.end.getMinutes());
-    const startTime = sessionData.start.getHours() < 12 ? `${start}am` : `${start}pm`
-    const endTime = sessionData.end.getHours() < 12 ? `${end}am` : `${end}pm`
-    const runTime = startTime + " - " + endTime;
-
-    return(runTime)
-
-}
 
 
-
-const SessionInfo = ( {sessions}: Props) => {
-  const { data: session } = useSession();
-
-  const router = useRouter()
-  const sessionId  = router.query
-//   const sessionData = dataWithDates.find(item => item._id == sessionId.id)
-//   console.log(sessions)
-//   console.log(sessionId)
+const sessionInfo = () => {
+  
+  const [session, setSession] = useState([]);
+  const router = useRouter();
+  const currentSessionId  = router.query.id;
 
 
-  if (session) {
-    return (
-      <>
-        <NavbarSimple/>
-        <Box
-          margin="5vw"
+  useEffect(() => {
+      (async () => {
+          const results = await fetch("/api/session").then(response => response.json());
+          setSession(results);
+      })();
+  }, []);
+
+//   const thisSession = session.filter((item: Session) => item._id === currentSessionId)
+
+//   const data = session.map((item: Session) => ({
+//     ...item,
+//     startTime: new Date(item.startTime),
+//     endTime: new Date(item.endTime)
+//   }))
+
+const thisSession = session.map((item: Session) => ({
+    ...item,
+    startTime: new Date(item.startTime),
+    endTime: new Date(item.endTime)
+  })).find(
+    item => item._id === currentSessionId)
+
+console.log(thisSession)
+console.log(currentSessionId)
+  return (
+    <>
+        <NavbarSimple/>    
+        <div
+        style={{
+            display: "flex",
+            // justifyContent: "left",
+            flexDirection: "row",
+            width: "100%",
+        }}
         >
-            <Heading margin="none" level="1" >
-                {/* {thisSession} */}
-            </Heading>
+            <div
+                style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                marginLeft: "2vw",
+                marginRight: "2vw",
+                }}
+            >
+                {thisSession !== undefined &&(
+                    // Render cards for each session 
+                    <Box
+                        margin="2vw"
+                    >
+                        {(thisSession.title !== "") && 
+                            <Heading level="1" margin={{top: "6vh", bottom:"none"}}>{thisSession.title}</Heading>
+                        }
+                        {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisSession)}</Heading>}
+                        {(thisSession !== undefined) && 
+                            <Heading level="3" margin="none">{getSessionDisplayTime(thisSession)}</Heading>
+                        }
+                        {(thisSession.location !== "") && 
+                            // <Link style={{textDecoration: 'underline'}} href={ "/maps/" + thisSession.location}>
+                                thisSession.location
+                            // </Link> 
+                        }
+                        {thisSession.description && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Description</Heading>}
+                        {(thisSession.description !== undefined) && 
+                            <Paragraph  margin={{top:"none"}}>{thisSession.description}</Paragraph>
+                        }
+                        {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Speakers</Heading>}
+                        {thisSession.speaker[0].firstName && (thisSession.speaker.map((speaker: Speaker) => {
+                            const speakerName = speaker.firstName + " " + speaker.lastName;
+                            console.log(speakerName);
+                            return (
+                            <>
+                                <Heading level="2" margin={{top: "0.5rem", bottom:"none"}} weight="normal">{speakerName}</Heading>
+                                <Heading level="3" margin="none">{speaker.affiliation}</Heading>
+                                <Paragraph  margin={{top:"none"}}>{speaker.bio}</Paragraph>
+                            </>
+                            )
+                        }))}
 
-
-        </Box>
-      </>
-    );
-  }
-  return <SignIn />;
+                    </Box>
+                )
+                }
+            </div>
+        </div>
+    </>
+  );
 };
 
-export default SessionInfo;
+export default sessionInfo;
+
+
+const getSpeakers = (currentSession: Session) => {
+    if (currentSession !== undefined) {
+        if (currentSession.speaker[1] === undefined ) {
+            const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName
+            return singleSpeaker;
+        } else {
+        const speakers: Array<string> = []
+        {currentSession.speaker.forEach((speaker: Speaker) => {
+            speakers.push(
+                speaker.lastName
+            )
+        })}
+        const multiSpeakers = speakers.join(' / ');
+
+        return multiSpeakers;
+        }
+    }
+    return <div>Sorry not a vaild Session</div>
+  }
+
+const getSessionDisplayTime = (session: Session) => {
+    const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
+    const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
+    const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`
+    const endTime = session.endTime.getHours() < 12 ? `${end}am` : `${end}pm`
+    const runTime = startTime + " - " + endTime;
+
+    return runTime;
+
+}
