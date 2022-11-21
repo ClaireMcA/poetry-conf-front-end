@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import { dataWithDates, sessionData } from "../lib/data";
 import NavbarSimple from "../../components/NavbarSimple";
-import { Paragraph, Card, Heading, Box } from 'grommet'
+import { Paragraph, Card, Heading, Box, Button } from 'grommet';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import type { Session, Speaker } from "../../lib/types";
+import { Menu, LinkPrevious } from "grommet-icons";
 
 
 
@@ -59,8 +60,9 @@ console.log(currentSessionId)
                     <Box
                         margin="2vw"
                     >
+                        <Button margin={{top: "3vh", bottom:"none"}} onClick={() => router.back()}>{<LinkPrevious />}</Button>
                         {(thisSession.title !== "") && 
-                            <Heading level="1" margin={{top: "6vh", bottom:"none"}}>{thisSession.title}</Heading>
+                            <Heading level="1" margin={{top: "3vh", bottom:"none"}}>{thisSession.title}</Heading>
                         }
                         {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisSession)}</Heading>}
                         {(thisSession !== undefined) && 

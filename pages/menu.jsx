@@ -54,6 +54,13 @@ const Monday = () => {
                                 <Heading margin="none" level="2">Schedule</Heading>
                             </Box>
                         </Link>
+                        <Link href="https://www.ucpoetry2022.info/">
+                            <Box
+                                margin="large"
+                            >
+                                <Heading  margin="none" level="2">Back to Main Site</Heading>
+                            </Box>
+                        </Link>
                         {/* <Link href="/maps">
                             <Box
                                 margin="large"
