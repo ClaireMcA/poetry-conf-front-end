@@ -4,7 +4,7 @@ import NavbarSimple from "../../components/NavbarSimple";
 import { Paragraph, Card, Heading, Box, Button } from 'grommet';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import type { Session, Speaker } from "../../lib/types";
+import type { Sessions, Speaker } from "../../lib/types";
 import { Menu, LinkPrevious } from "grommet-icons";
 
 
@@ -26,7 +26,7 @@ const SessionInfo = () => {
   }, []);
 
 
-const thisSession = session.map((item: Session) => ({
+const thisSession = session.map((item: Sessions) => ({
     ...item,
     startTime: new Date(item.startTime),
     endTime: new Date(item.endTime)
@@ -102,7 +102,7 @@ console.log(currentSessionId)
 export default SessionInfo;
 
 
-const getSpeakers = (currentSession: Session) => {
+const getSpeakers = (currentSession: Sessions) => {
     if (currentSession !== undefined) {
         if (currentSession.speaker[1] === undefined ) {
             const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName
@@ -122,7 +122,7 @@ const getSpeakers = (currentSession: Session) => {
     return <div>Sorry not a vaild Session</div>
   }
 
-const getSessionDisplayTime = (session: Session) => {
+const getSessionDisplayTime = (session: Sessions) => {
     const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
     const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
     const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`

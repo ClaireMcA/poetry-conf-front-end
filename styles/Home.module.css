@@ -113,6 +113,10 @@
     width: 100%;
     flex-direction: column;
   }
+
+  .ibrEOb .cqdzQz {
+    height: 200px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

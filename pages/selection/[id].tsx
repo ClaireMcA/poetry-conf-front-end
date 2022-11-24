@@ -93,7 +93,7 @@ import Navbar from "../../components/Navbar"
 import SignIn from "../../components/SignIn";
 import { useRouter } from "next/router";
 import { Box, Card, Heading, Paragraph  } from "grommet";
-import type { Panel, Paper, Session, Speaker } from '../../lib/types'
+import type { Panels, Papers, Sessions, Speaker } from '../../lib/types'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -102,6 +102,7 @@ const Selection = () => {
   const { data: session } = useSession();
   const [panels, setPanels] = useState([]);
   const [papers, setPapers] = useState([]);
+  const [sessions, setSessions] = useState([]);
   const router = useRouter();
   const currentSessionId  = router.query.id;
 
@@ -115,32 +116,72 @@ const Selection = () => {
         const results = await fetch("/api/papers").then(response => response.json());
         setPapers(results);
       })();
+      (async () => {
+        const results = await fetch("/api/session").then(response => response.json());
+        setSessions(results);
+      })();
   }, []);
 
 
-  const sessionPanels = panels.filter((panel: Panel) => panel.sessionId === currentSessionId)
+  const thisSession = sessions.map((item: Sessions) => ({
+    ...item,
+    startTime: new Date(item.startTime),
+    endTime: new Date(item.endTime)
+  })).find(
+    item => item._id === currentSessionId)
 
 
-  const panelPapers = sessionPanels.map((panel: Panel) => ({
+  const sessionHeader = () => {
+    const time = getSessionDisplayTime(thisSession)
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    const date = thisSession?.startTime.toLocaleDateString("en-US", options)
+    if (date !== undefined) {
+      const day = date.substring(0, 3);
+      console.log(day)
+
+      const heading = day + " " + time
+
+      return heading
+    }
+
+
+
+
+
+
+
+  }
+
+  const headerText = sessionHeader()
+
+  // console.log("Session Header")
+  // console.log(sessionHeader.title)
+
+  const sessionPanels = panels.filter((panel: Panels) => panel.sessionId === currentSessionId)
+
+  const panelPapers = sessionPanels.map((panel: Panels) => ({
     _id: panel._id,
     title: panel.title,
-    papers: papers.filter((paper: Paper) => paper.panelId === panel._id).sort((a: Paper ,b: Paper) =>  a.order - b.order)
+    papers: papers.filter((paper: Papers) => paper.panelId === panel._id).sort((a: Papers ,b: Papers) =>  a.order - b.order),
+    location: panel.location
   }));
 
 
-  console.log("panelPapers")
-  console.log(session)
+  // console.log("panelPapers")
+  // console.log(session)
 
   if (session) {
   return (
     <>
-      <Navbar headerTitle="Parallel Session"/>
+      <Navbar headerTitle={headerText}/>
       <Box background="dblue" style={{ width: '100vw', height: 'max-content' }}>
         <Box direction="row" fill="horizontal">
-          { panelPapers.map(({ title }) => {
+
+          { panelPapers.map(({ title, location }) => {
             return (
-              <Box background="dblue" height="xxsmall" justify="center" pad="small" key={title} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
-                <Heading textAlign="center" weight="normal" margin="none" level="3" size="1rem">{ title }</Heading>
+              <Box background="dblue" height="xsmall" justify="center" pad="small" key={title} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
+                <Heading textAlign="center" weight="bold" margin="none" level="3" size="1rem">{ title }</Heading>
+                <Heading textAlign="center" weight="normal" style={{ textDecoration:"underline" }} margin={{left:"none", right:"none", top:"0.5rem", bottom:"none"}} level="2" size="0.8rem">{ location }</Heading>
               </Box>
             )
           })}
@@ -151,7 +192,7 @@ const Selection = () => {
               <>
 
                 <Box height="98vh" background="dblue" key={_id} direction="column" margin={{horizontal:"2px"}} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
-                  { papers.map((paper: Paper) => (
+                  { papers.map((paper: Papers) => (
                     
                     <Card margin="xsmall" justify="center" background="white" pad="small" key={paper._id} flex={{grow: 1, shrink: 0}} style={{ minWidth: 0, flexBasis: 0 }} >
                       <Link style={{height:"100%"}} href={"/paper/" + paper._id}>
@@ -177,7 +218,7 @@ const Selection = () => {
 export default Selection;
 
 
-const getSpeakers = (currentPaper: Paper) => {
+const getSpeakers = (currentPaper: Papers) => {
   if (currentPaper !== undefined) {
       if (currentPaper.speaker[1] === undefined ) {
           const singleSpeaker = currentPaper.speaker[0].firstName + " " + currentPaper.speaker[0].lastName
@@ -195,4 +236,17 @@ const getSpeakers = (currentPaper: Paper) => {
       }
   }
   return <div></div>
+}
+
+
+const getSessionDisplayTime = (session: Sessions) => {
+  // const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
+  // const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
+  // const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`
+  // const endTime = session.endTime.getHours() < 12 ? `${end}am` : `${end}pm`
+  // const runTime = startTime + " - " + endTime;
+
+  // return runTime;
+
+
 }
