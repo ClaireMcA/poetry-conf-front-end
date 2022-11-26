@@ -63,10 +63,10 @@ const PaperInfo = () => {
                         {(thisPaper.title !== "") && 
                             <Heading level="1" margin={{top: "3vh", bottom:"none"}}>{thisPaper.title}</Heading>
                         }
-                        {thisPaper.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisPaper)}</Heading>}
-                        {thisPaper.description && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Abstract</Heading>}
+                        {thisPaper.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem", bottom: "none"}} weight="normal">{getSpeakers(thisPaper)}</Heading>}
+                        {thisPaper.description && <Heading level="2" margin={{top: "6vh", bottom: "none"}}>Abstract</Heading>}
                         {(thisPaper.description !== undefined) && 
-                            <Paragraph  margin={{top:"none"}}>{thisPaper.description}</Paragraph>
+                            <Paragraph  size="small" margin={{top:"none"}}>{thisPaper.description}</Paragraph>
                         }
                         {thisPaper.speaker[0].firstName && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Speakers</Heading>}
                         {thisPaper.speaker[0].firstName && (thisPaper.speaker.map((speaker: Speaker) => {
@@ -76,7 +76,7 @@ const PaperInfo = () => {
                             <>
                                 <Heading level="2" margin={{top: "0.5rem", bottom:"none"}} weight="normal">{speakerName}</Heading>
                                 <Heading level="3" margin="none">{speaker.affiliation}</Heading>
-                                <Paragraph  margin={{top:"none"}}>{speaker.bio}</Paragraph>
+                                <Paragraph  size="small" margin={{top:"none"}}>{speaker.bio}</Paragraph>
                             </>
                             )
                         }))}

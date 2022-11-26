@@ -51,14 +51,14 @@ const Monday = () => {
                             <Box
                                 margin="large"
                             >
-                                <Heading margin="none" level="2">Schedule</Heading>
+                                <Heading className="menuItem" margin="none" level="2">Schedule</Heading>
                             </Box>
                         </Link>
                         <Link href="https://www.ucpoetry2022.info/">
                             <Box
                                 margin="large"
                             >
-                                <Heading  margin="none" level="2">Back to Main Site</Heading>
+                                <Heading className="menuItem" margin="none" level="2">Back to Main Site</Heading>
                             </Box>
                         </Link>
                         {/* <Link href="/maps">
@@ -72,7 +72,7 @@ const Monday = () => {
                             <Box
                                 margin="large"
                             >
-                                <Button primary color="dblue" label={<Heading  margin="none" level="2">Sign Out</Heading>} onClick={() => signOut()}/>
+                                <Button primary color="dblue" label={<Heading className="menuItem" margin="none" level="2">Sign Out</Heading>} onClick={() => signOut()}/>
                             </Box>
                         </Box>
                     </Box>

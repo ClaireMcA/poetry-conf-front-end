@@ -12,9 +12,10 @@ export type Sessions = {
 
 export type Panels = {
   _id: string;
-  sessionId: string;
+  sessionId?: string;
   title: string;
   location: string;
+  papers?: Array<object>
 };
 
 export type Papers = {

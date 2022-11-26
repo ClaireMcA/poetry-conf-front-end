@@ -59,6 +59,7 @@ const Timetable = ({ day }: props,) => {
                 height={getHeightFromTime( session )}
                 margin={getMarginFromTime(day, session)}
                 style={{position: "absolute"}}
+                className="eventCard"
               >
                 <Heading level='3' margin='none'>{session.title}</Heading>
                 <Paragraph size="small" margin={{horizontal: "none", top:"none", bottom:"7px"}}>{getSessionDisplayTime(session)}</Paragraph>

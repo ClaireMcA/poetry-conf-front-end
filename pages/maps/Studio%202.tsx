@@ -13,7 +13,7 @@ const Building2 = () => {
         return (
             <>
                 <Navbar headerTitle={"Maps"} />
-                <Heading>This is Building 2, B11!</Heading>
+                <Heading>This is Studio 2!</Heading>
             </>
         );
     }

@@ -3,15 +3,16 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { 
   Box, 
   Heading, 
+  Button,
 } from 'grommet';
-import { FormNext, FormPrevious, Menu } from 'grommet-icons';
+import { FormNext, FormPrevious, Menu, LinkPrevious } from 'grommet-icons';
 import Link from 'next/link'
 import { useRouter } from "next/router";
 
 import Timetable from "../components/TimeTable";
 
 interface HeaderProps {
-  headerTitle: string;
+  headerTitle: any;
   headerRight?: string;
   headerLeft?: string;
 }
@@ -63,8 +64,8 @@ const Navbar = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
             <Link href="/menu">{<Menu />}</Link>
         </Box>
       </Box>
-      <Box
-        pad={{ left: 'large', right: 'small', vertical: '35px' }}
+      <Box className="navBarFormat"
+        pad={{ left: 'large', right: 'small', top: '70px' }}
       >
       </Box>
     </>

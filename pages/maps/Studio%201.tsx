@@ -2,7 +2,7 @@ import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Navbar from '../../components/Navbar';
 import SignIn from '../../components/SignIn';
-import { Heading } from 'grommet';
+import { Heading, Box } from 'grommet';
 
 
 const Building2 = () => {
@@ -13,7 +13,9 @@ const Building2 = () => {
         return (
             <>
                 <Navbar headerTitle={"Maps"} />
-                <Heading>This is Building 2, B9!</Heading>
+                <Box>
+                <Heading>This is Studio 1!</Heading>
+                </Box>
             </>
         );
     }
