@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import TimeSlots from "./TimeSlots";
 import { Paragraph, Card, Heading, Box } from 'grommet'
 import Link from 'next/link';
-import type { Session, Speaker, props } from '../lib/types'
+import type { Sessions, Speaker, props } from '../lib/types'
 
 
 const Timetable = ({ day }: props,) => {
@@ -17,7 +17,7 @@ const Timetable = ({ day }: props,) => {
       })();
   }, []);
 
-  const filteredDay = session.map((item: Session) => ({
+  const filteredDay = session.map((item: Sessions) => ({
     ...item,
     startTime: new Date(item.startTime),
     endTime: new Date(item.endTime)
@@ -59,6 +59,7 @@ const Timetable = ({ day }: props,) => {
                 height={getHeightFromTime( session )}
                 margin={getMarginFromTime(day, session)}
                 style={{position: "absolute"}}
+                className="eventCard"
               >
                 <Heading level='3' margin='none'>{session.title}</Heading>
                 <Paragraph size="small" margin={{horizontal: "none", top:"none", bottom:"7px"}}>{getSessionDisplayTime(session)}</Paragraph>
@@ -81,7 +82,7 @@ const Timetable = ({ day }: props,) => {
 
 export default Timetable;
 
-const getSpeakers = (currentSession: Session) => {
+const getSpeakers = (currentSession: Sessions) => {
   if (currentSession !== undefined) {
     if (currentSession.speaker[1] === undefined ) {
       const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName
@@ -103,7 +104,7 @@ const getSpeakers = (currentSession: Session) => {
 
 
 
-const getMarginFromTime = ( day: number, currentSession: Session) => {
+const getMarginFromTime = ( day: number, currentSession: Sessions) => {
   if (currentSession !== undefined) {
     const dayStart = new Date(2022, 11, day, 9, 0)
     const diffMs = currentSession.startTime.getTime() - dayStart.getTime();
@@ -115,7 +116,7 @@ const getMarginFromTime = ( day: number, currentSession: Session) => {
   }
 }
 
-const getHeightFromTime = (currentSession: Session) => {
+const getHeightFromTime = (currentSession: Sessions) => {
   if (currentSession !== undefined) {
     const diffMs = currentSession.endTime.getTime() - currentSession.startTime.getTime();
     const diffMins = diffMs / 60000
@@ -127,7 +128,7 @@ const getHeightFromTime = (currentSession: Session) => {
 }
 
 
-const getSessionDisplayTime = (session: Session) => {
+const getSessionDisplayTime = (session: Sessions) => {
   const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
   const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
   const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`

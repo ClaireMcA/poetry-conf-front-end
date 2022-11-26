@@ -5,7 +5,8 @@ import { Paragraph, Card, Heading, Box, Button } from 'grommet'
 import { LinkPrevious } from "grommet-icons";
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import type { Session, Speaker } from "../../lib/types";
+import type { Sessions, Speaker } from "../../lib/types";
+import { AppProps } from "next/app";
 
 
 
@@ -26,7 +27,7 @@ const PaperInfo = () => {
   }, []);
 
 
-  const thisSession = papers.map((item: Session) => ({
+  const thisPaper = papers.map((item: Sessions) => ({
       ...item,
       startTime: new Date(item.startTime),
       endTime: new Date(item.endTime)
@@ -53,29 +54,29 @@ const PaperInfo = () => {
                 marginRight: "2vw",
                 }}
             >
-                {thisSession !== undefined &&(
+                {thisPaper !== undefined &&(
                     
                     <Box
                         margin="2vw"
                     >
                         <Button margin={{top: "3vh", bottom:"none"}} onClick={() => router.back()}>{<LinkPrevious />}</Button>
-                        {(thisSession.title !== "") && 
-                            <Heading level="1" margin={{top: "3vh", bottom:"none"}}>{thisSession.title}</Heading>
+                        {(thisPaper.title !== "") && 
+                            <Heading level="1" margin={{top: "3vh", bottom:"none"}}>{thisPaper.title}</Heading>
                         }
-                        {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisSession)}</Heading>}
-                        {thisSession.description && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Abstract</Heading>}
-                        {(thisSession.description !== undefined) && 
-                            <Paragraph  margin={{top:"none"}}>{thisSession.description}</Paragraph>
+                        {thisPaper.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem", bottom: "none"}} weight="normal">{getSpeakers(thisPaper)}</Heading>}
+                        {thisPaper.description && <Heading level="2" margin={{top: "6vh", bottom: "none"}}>Abstract</Heading>}
+                        {(thisPaper.description !== undefined) && 
+                            <Paragraph  size="small" margin={{top:"none"}}>{thisPaper.description}</Paragraph>
                         }
-                        {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Speakers</Heading>}
-                        {thisSession.speaker[0].firstName && (thisSession.speaker.map((speaker: Speaker) => {
+                        {thisPaper.speaker[0].firstName && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Speakers</Heading>}
+                        {thisPaper.speaker[0].firstName && (thisPaper.speaker.map((speaker: Speaker) => {
                             const speakerName = speaker.firstName + " " + speaker.lastName;
                             console.log(speakerName);
                             return (
                             <>
                                 <Heading level="2" margin={{top: "0.5rem", bottom:"none"}} weight="normal">{speakerName}</Heading>
                                 <Heading level="3" margin="none">{speaker.affiliation}</Heading>
-                                <Paragraph  margin={{top:"none"}}>{speaker.bio}</Paragraph>
+                                <Paragraph  size="small" margin={{top:"none"}}>{speaker.bio}</Paragraph>
                             </>
                             )
                         }))}
@@ -92,7 +93,7 @@ const PaperInfo = () => {
 export default PaperInfo;
 
 
-const getSpeakers = (currentSession: Session) => {
+const getSpeakers = (currentSession: Sessions) => {
     if (currentSession !== undefined) {
         if (currentSession.speaker[1] === undefined ) {
             const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName

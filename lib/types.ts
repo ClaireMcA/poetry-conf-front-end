@@ -1,4 +1,4 @@
-export type Session = {
+export type Sessions = {
   _id: string;
   title: string;
   category: string;
@@ -10,14 +10,15 @@ export type Session = {
   startTime: Date;
 }
 
-export type Panel = {
+export type Panels = {
   _id: string;
-  sessionId: string;
+  sessionId?: string;
   title: string;
-  loaction: string;
+  location: string;
+  papers?: Array<object>
 };
 
-export type Paper = {
+export type Papers = {
   _id: string;
   title: string;
   speaker: Array<Speaker>

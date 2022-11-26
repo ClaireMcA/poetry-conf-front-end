@@ -4,7 +4,7 @@ import NavbarSimple from "../../components/NavbarSimple";
 import { Paragraph, Card, Heading, Box, Button } from 'grommet';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import type { Session, Speaker } from "../../lib/types";
+import type { Sessions, Speaker } from "../../lib/types";
 import { Menu, LinkPrevious } from "grommet-icons";
 
 
@@ -26,7 +26,7 @@ const SessionInfo = () => {
   }, []);
 
 
-const thisSession = session.map((item: Session) => ({
+const thisSession = session.map((item: Sessions) => ({
     ...item,
     startTime: new Date(item.startTime),
     endTime: new Date(item.endTime)
@@ -62,9 +62,9 @@ console.log(currentSessionId)
                     >
                         <Button margin={{top: "3vh", bottom:"none"}} onClick={() => router.back()}>{<LinkPrevious />}</Button>
                         {(thisSession.title !== "") && 
-                            <Heading level="1" margin={{top: "3vh", bottom:"none"}}>{thisSession.title}</Heading>
+                            <Heading level="1" size="small" weight="normal" margin={{top: "3vh", bottom:"none"}}>{thisSession.title}</Heading>
                         }
-                        {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisSession)}</Heading>}
+                        {thisSession.speaker[0].firstName && <Heading level="2" size="large" margin={{top: "0.5rem"}} weight="normal">{getSpeakers(thisSession)}</Heading>}
                         {(thisSession !== undefined) && 
                             <Heading level="3" margin="none">{getSessionDisplayTime(thisSession)}</Heading>
                         }
@@ -75,7 +75,7 @@ console.log(currentSessionId)
                         }
                         {thisSession.description && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Description</Heading>}
                         {(thisSession.description !== undefined) && 
-                            <Paragraph  margin={{top:"none"}}>{thisSession.description}</Paragraph>
+                            <Paragraph  size="small" margin={{top:"1vh"}}>{thisSession.description}</Paragraph>
                         }
                         {thisSession.speaker[0].firstName && <Heading level="2" margin={{top: "7vh", bottom: "none"}}>Speakers</Heading>}
                         {thisSession.speaker[0].firstName && (thisSession.speaker.map((speaker: Speaker) => {
@@ -85,7 +85,7 @@ console.log(currentSessionId)
                             <>
                                 <Heading level="2" margin={{top: "0.5rem", bottom:"none"}} weight="normal">{speakerName}</Heading>
                                 <Heading level="3" margin="none">{speaker.affiliation}</Heading>
-                                <Paragraph  margin={{top:"none"}}>{speaker.bio}</Paragraph>
+                                <Paragraph  size="small" margin={{top:"none"}}>{speaker.bio}</Paragraph>
                             </>
                             )
                         }))}
@@ -102,7 +102,7 @@ console.log(currentSessionId)
 export default SessionInfo;
 
 
-const getSpeakers = (currentSession: Session) => {
+const getSpeakers = (currentSession: Sessions) => {
     if (currentSession !== undefined) {
         if (currentSession.speaker[1] === undefined ) {
             const singleSpeaker = currentSession.speaker[0].firstName + " " + currentSession.speaker[0].lastName
@@ -122,7 +122,7 @@ const getSpeakers = (currentSession: Session) => {
     return <div>Sorry not a vaild Session</div>
   }
 
-const getSessionDisplayTime = (session: Session) => {
+const getSessionDisplayTime = (session: Sessions) => {
     const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
     const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
     const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`

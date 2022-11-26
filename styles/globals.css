@@ -39,3 +39,70 @@ a {
   display: inline-block;
 }
 
+
+
+.StyledBox-sc-13pk1d4-0.jcPxeD.navBarFormat {
+  padding-top: 70px;
+}
+
+@media (min-width: 769px) {
+  .StyledBox-sc-13pk1d4-0.jcPxeD.navBarFormat {
+    padding-top: 100px;
+  }
+
+}
+
+
+@media (min-width: 600px) {
+
+
+
+  .StyledHeading-sc-1rdh4aw-0.lbSxCd {
+    font-size: 1.5rem;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelCard a div p {
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+    font-weight: 300;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelCard a div h4 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelCard {
+    padding: 1.5rem;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelHeader h3 {
+    font-size: 1.5rem;
+
+    /* margin-top: 1rem; */
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelHeader h2 {
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 0.2rem;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelHeader {
+    height: 16vh;
+  }
+
+  .StyledBox-sc-13pk1d4-0.eventCard h3 {
+    font-size: 18px;
+  }
+
+  .StyledHeading-sc-1rdh4aw-0.menuItem {
+    font-size: 3rem;
+    line-height: 1rem;
+  }
+
+  .StyledBox-sc-13pk1d4-0.panelsContainer {
+    height: 130vh
+  }
+
+}

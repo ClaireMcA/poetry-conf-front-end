@@ -92,8 +92,9 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar"
 import SignIn from "../../components/SignIn";
 import { useRouter } from "next/router";
-import { Box, Card, Heading, Paragraph  } from "grommet";
-import type { Panel, Paper, Session, Speaker } from '../../lib/types'
+import { Box, Card, Heading, Paragraph, Button  } from "grommet";
+import { LinkPrevious } from "grommet-icons";
+import type { Panels, Papers, Sessions, Speaker } from '../../lib/types'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -102,6 +103,7 @@ const Selection = () => {
   const { data: session } = useSession();
   const [panels, setPanels] = useState([]);
   const [papers, setPapers] = useState([]);
+  const [sessions, setSessions] = useState([]);
   const router = useRouter();
   const currentSessionId  = router.query.id;
 
@@ -115,49 +117,88 @@ const Selection = () => {
         const results = await fetch("/api/papers").then(response => response.json());
         setPapers(results);
       })();
+      (async () => {
+        const results = await fetch("/api/session").then(response => response.json());
+        setSessions(results);
+      })();
   }, []);
 
 
-  const sessionPanels = panels.filter((panel: Panel) => panel.sessionId === currentSessionId)
+  const thisSession = sessions.map((item: Sessions) => ({
+    ...item,
+    startTime: new Date(item.startTime),
+    endTime: new Date(item.endTime)
+  })).find(
+    item => item._id === currentSessionId)
 
 
-  const panelPapers = sessionPanels.map((panel: Panel) => ({
+  const sessionHeader = () => {
+    if (thisSession !== undefined) {
+      const time = getSessionDisplayTime(thisSession)
+      const date = thisSession.startTime.toLocaleDateString("en-US", { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' })
+      const day = date.substring(0, 3);
+      const heading = day + " " + time
+
+      return heading
+    }
+  }
+
+  const headerText = sessionHeader()
+
+  // console.log("Session Header")
+  // console.log(sessionHeader.title)
+
+  const sessionPanels = panels.filter((panel: Panels) => panel.sessionId === currentSessionId)
+
+  const panelPapers = sessionPanels.map((panel: Panels) => ({
     _id: panel._id,
     title: panel.title,
-    papers: papers.filter((paper: Paper) => paper.panelId === panel._id).sort((a: Paper ,b: Paper) =>  a.order - b.order)
+    papers: papers.filter((paper: Papers) => paper.panelId === panel._id).sort((a: Papers ,b: Papers) =>  a.order - b.order),
+    location: panel.location
   }));
 
 
-  console.log("panelPapers")
-  console.log(session)
+
+
+
+  const paperNumber = amountOfPapers(panelPapers)
+
+
+
+  // console.log("panelPapers")
+  console.log(paperNumber)
 
   if (session) {
   return (
     <>
-      <Navbar headerTitle="Parallel Session"/>
-      <Box background="dblue" style={{ width: '100vw', height: 'max-content' }}>
+      <Navbar headerTitle={headerText}/>
+      <Box key={1} background="dblue" style={{ width: '100vw', height: 'max-content' }}>
         <Box direction="row" fill="horizontal">
-          { panelPapers.map(({ title }) => {
+
+          { panelPapers.map(({ title, location, _id }) => {
             return (
-              <Box background="dblue" height="xxsmall" justify="center" pad="small" key={title} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
-                <Heading textAlign="center" weight="normal" margin="none" level="3" size="1rem">{ title }</Heading>
+              <Box background="dblue" height="17vh" className="panelHeader" justify="center" pad="small" key={title} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
+                <Heading textAlign="center" key={1} weight="bold" margin="none" level="3" size="1rem">{ title }</Heading>
+                {/* <Link href={"../maps/" + location } style={{ textDecoration:"underline" }}> */}
+                  <Heading textAlign="center" key={2} weight="normal"  margin={{left:"none", right:"none", top:"0.5rem", bottom:"none"}} level="2" size="0.8rem">{ location }</Heading>
+                {/* </Link> */}
               </Box>
             )
           })}
         </Box>
-        <Box height="auto" direction="row" fill="horizontal">
+        <Box className="panelsContainer" key={2} height="100vh" direction="row" fill="horizontal">
           { panelPapers.map(({ _id, papers }) => {
             return (
               <>
 
-                <Box height="98vh" background="dblue" key={_id} direction="column" margin={{horizontal:"2px"}} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
-                  { papers.map((paper: Paper) => (
+                <Box height="auto" background="dblue" key={_id} direction="column" margin={{horizontal:"2px"}} flex={{grow: 1}} style={{ minWidth: 0, flexBasis: 0 }}>
+                  { papers.map((paper: Papers) => (
                     
-                    <Card margin="xsmall" justify="center" background="white" pad="small" key={paper._id} flex={{grow: 1, shrink: 0}} style={{ minWidth: 0, flexBasis: 0 }} >
-                      <Link style={{height:"100%"}} href={"/paper/" + paper._id}>
-                        <Box justify="center">
-                        <Heading margin="none" level="5" size="small">{ paper.title }</Heading>
-                        <Paragraph size="small" margin={{horizontal:"none", top: "3px", bottom:"none"}}>{ getSpeakers(paper)} </Paragraph>
+                    <Card margin="xsmall" justify="center" className="panelCard" background="white" pad="small" key={paper._id} flex={{grow: 1, shrink: 0}} style={{ minWidth: 0, flexBasis: 0 }} >
+                      <Link key={paper._id} style={{height:"100%"}} href={"/paper/" + paper._id}>
+                        <Box key={1} justify="center">
+                        <Paragraph key={2} margin={{horizontal:"none", top: "3px", bottom:"none"}} maxLines={8} size="small">{ paper.title }</Paragraph>
+                        <Heading key={3} size="small" level="4" margin="none">{ getSpeakers(paper)} </Heading>
                         </Box>
                       </Link>
                     </Card>
@@ -177,11 +218,14 @@ const Selection = () => {
 export default Selection;
 
 
-const getSpeakers = (currentPaper: Paper) => {
+const getSpeakers = (currentPaper: Papers) => {
   if (currentPaper !== undefined) {
       if (currentPaper.speaker[1] === undefined ) {
           const singleSpeaker = currentPaper.speaker[0].firstName + " " + currentPaper.speaker[0].lastName
           return singleSpeaker;
+      } else if (currentPaper.speaker[1].firstName.length === 0 ) {
+        const singleSpeaker = " "
+        return singleSpeaker;
       } else {
       const speakers: Array<string> = []
       {currentPaper.speaker.forEach((speaker: Speaker) => {
@@ -195,4 +239,43 @@ const getSpeakers = (currentPaper: Paper) => {
       }
   }
   return <div></div>
+}
+
+
+const getSessionDisplayTime = (session: Sessions) => {
+  if (session !== undefined) {
+  const start = (session.startTime.getHours() < 13 ? session.startTime.getHours() : session.startTime.getHours() - 12) + ":" + (session.startTime.getMinutes() == 0 ? "00" : session.startTime.getMinutes());
+  const end = (session.endTime.getHours() < 13 ? session.endTime.getHours() : session.endTime.getHours() - 12) + ":" + (session.endTime.getMinutes() == 0 ? "00" : session.endTime.getMinutes());
+  const startTime = session.startTime.getHours() < 12 ? `${start}am` : `${start}pm`
+  const endTime = session.endTime.getHours() < 12 ? `${end}am` : `${end}pm`
+  const runTime = startTime + " - " + endTime;
+
+  return runTime;
+  }
+
+
+}
+
+const amountOfPapers = (panels: Array<Panels>) => {
+  // console.log(panels[0].papers.length)
+  if ( panels !== undefined) {
+    const panel1 = panels[0]?.papers?.length
+    const panel2 = panels[1]?.papers?.length
+    const panel3 = panels[2]?.papers?.length
+    if (panel1 !== undefined && panel2 !== undefined && panel3 !== undefined) {
+      const paperAmount = Math.max(panel1, panel2, panel3)
+      return paperAmount
+    }
+  }
+}
+
+
+const heightFromPapers = (height: number) => {
+  if (height === 1) {
+    return "70vh"
+  } else if (height === 2) {
+    return "75vh"
+  } else {
+    return "115vh"
+  }
 }
