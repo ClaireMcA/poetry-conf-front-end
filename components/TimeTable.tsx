@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-{/* import { dataWithDates, sessionData } from "../lib/data"; */}
+// import { dataWithDates, sessionData } from "../lib/data";
 import TimeSlots from "./TimeSlots";
 import { Paragraph, Card, Heading, Box } from 'grommet'
 import Link from 'next/link';
