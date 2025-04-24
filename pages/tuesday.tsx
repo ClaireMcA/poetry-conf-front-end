@@ -5,18 +5,18 @@ import SignIn from "../components/SignIn";
 import Timetable from "../components/TimeTable";
 
 const Tuesday = () => {
-    // const { data: session } = useSession();
-    // console.log(session);
+    const { data: session } = useSession();
+    console.log(session);
   
-    // if (session) {
+    if (session) {
         return (
             <>
                 <Navbar headerTitle={"Tuesday"} headerRight={"wednesday"} headerLeft={"monday"}/>
                 <Timetable day={6}/>
             </>
         );
-    // }
-    // return <SignIn />;
+    }
+    return <SignIn />;
 };
 
 export default Tuesday;
