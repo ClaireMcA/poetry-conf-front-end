@@ -34,7 +34,7 @@ const Timetable = ({ day }: props,) => {
         width: "100%",
       }}
     >
-      <TimeSlots timeSlots={Array.from({ length: 13 }, (_, i) => i)} />
+      <TimeSlots timeSlots={Array.from({ length: 13 }, (_, i) => i)} /> // 
       <div
         style={{
           display: "flex",
