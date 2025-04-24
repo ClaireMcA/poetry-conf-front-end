@@ -22,10 +22,10 @@ const TimeSlots: FC<TimeSlots> = (props) => {
           justifySelf: "center",
         }
         const stylesHour = {
-          // height: "50px",
+          // height: "50px", 
           border: "1px solid lightGrey",
-          // padding: 4,
-          // justifySelf: "center",
+          // padding: 4, 
+          // justifySelf: "center", 
         }
 
         return (
