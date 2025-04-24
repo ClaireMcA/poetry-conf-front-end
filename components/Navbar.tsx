@@ -18,7 +18,7 @@ interface HeaderProps {
 }
 
 const Navbar = ({ headerTitle, headerLeft, headerRight }:HeaderProps) => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   // console.log(session);
 
 

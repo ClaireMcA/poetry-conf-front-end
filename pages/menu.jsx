@@ -8,11 +8,11 @@ import { Menu } from 'grommet-icons'
 import { useRouter } from "next/router";
 
 const Monday = () => {
-    const { data: session } = useSession();
+    // const { data: session } = useSession();
     // console.log(session);
     const router = useRouter()
     
-    if (session) {
+    // if (session) {
         return (
             <>
                 <Box
@@ -54,13 +54,13 @@ const Monday = () => {
                                 <Heading className="menuItem" margin="none" level="2">Schedule</Heading>
                             </Box>
                         </Link>
-                        <Link href="https://www.ucpoetry2022.info/">
+                        {/* <Link href="https://www.ucpoetry2022.info/">
                             <Box
                                 margin="large"
                             >
                                 <Heading className="menuItem" margin="none" level="2">Back to Main Site</Heading>
                             </Box>
-                        </Link>
+                        </Link> */}
                         {/* <Link href="/maps">
                             <Box
                                 margin="large"
@@ -79,8 +79,8 @@ const Monday = () => {
                 </Box>
             </>
         );
-    }
-    return <SignIn />;
+    // }
+    // return <SignIn />;
 };
 
 export default Monday;

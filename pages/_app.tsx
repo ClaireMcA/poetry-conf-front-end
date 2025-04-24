@@ -34,12 +34,12 @@ export default function App({Component, pageProps,}: AppProps<{session: Session;
   };
 
     return (
-      <SessionProvider session={pageProps.session}>
-        {/* <Navbar /> */}
+      // <SessionProvider session={pageProps.session}>
+        /* <Navbar /> */
         <Grommet theme={theme}>
           <Component {...pageProps} />
         </Grommet>
-      </SessionProvider>
+      // </SessionProvider>
     );
 }
 

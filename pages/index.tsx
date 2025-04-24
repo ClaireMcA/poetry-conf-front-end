@@ -6,18 +6,18 @@ import Tuesday from "./tuesday";
 import Wednesday from "./wednesday";
 
 const HomePage = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
 
-  const today = new Date().getDate();
+  // const today = new Date().getDate();
 
-  if (session) {
+  // if (session) {
     return (
       <>
-        {today === 5 &&
+        {/* {today === 5 && */}
             <Monday />
-        }
-        {today === 6 &&
+        {/* } */}
+        {/* {today === 6 &&
             <Tuesday />
         }
         {today === 7 &&
@@ -25,13 +25,13 @@ const HomePage = () => {
         }
         {((today !== 5) &&  (today !== 6) && (today !== 7)) &&
             <Monday />
-        }
+        } */}
 
       </>
     );
   }
-  return <SignIn />;
-};
+  // return <SignIn />;
+// };
 
 export default HomePage;
 
